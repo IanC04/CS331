@@ -50,8 +50,8 @@ cmake-build-*/
 # File-based project format
 *.iws
 
-# IntelliJ
-out/
+# IntelliJ: Include the PDF outputs
+out/*
 !out/*.pdf
 
 # mpeltonen/sbt-idea plugin
