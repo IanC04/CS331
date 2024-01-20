@@ -224,11 +224,31 @@
         Your task is to do the following:
         \begin{enumerate}
             \item[i] \textbf{(7 points)}
-            % TODO: Finish this algorithm
             \begin{verbatim}
+Initialize all TAs to be unassigned
+Store all TA preferences in a sorted list for each course and the
+number of TAs needed
+while (course needs TA) {
+    c = a course that needs a TA
+    ta = first TA in c's preference list that c hasn't tried to assign
+    if (ta is unassigned) {
+        assign ta to c
+    } else if (ta prefers c to ta's current course) {
+        c' = ta's current course
+        unassign ta from c'
+        assign ta to c
+    }
+    else {
+        ta rejects c
+    }
+}
             \end{verbatim}
             \item[ii] \textbf{(7 points)}
             \begin{proof}
+                First, we show termination.\newline
+                The sorted list of applicants TAs for each course is strictly decreasing each
+                iteration, $\therefore$ the algorithm will terminate.\newline
+                Next, we show correctness.\newline
                 % TODO: Finish this proof
             \end{proof}
         \end{enumerate}
