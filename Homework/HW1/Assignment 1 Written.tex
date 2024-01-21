@@ -231,7 +231,9 @@ number of TAs needed
 while (course needs TA) {
     c = a course that needs a TA
     ta = first TA in c's preference list that c hasn't tried to assign
-    if (ta is unassigned) {
+    if (ta is unqualified for c) {
+        c rejects ta
+    } else if (ta is unassigned) {
         assign ta to c
     } else if (ta prefers c to ta's current course) {
         c' = ta's current course
@@ -249,7 +251,35 @@ while (course needs TA) {
                 The sorted list of applicants TAs for each course is strictly decreasing each
                 iteration, $\therefore$ the algorithm will terminate.\newline
                 Next, we show correctness.\newline
-                % TODO: Finish this proof
+                Observation 1: Courses are assigned TAs in order of preference.\newline
+                Observation 2: Once a TA is assigned to a course, they will not be unassigned,
+                only reassigned to a different course.\newline
+                Claim 1: All available TA spots are filled unless unqualified.\newline
+                Proof: Assume by contradiction that there is an available TA spot upon termination,
+                in other words, there is a course c$_0$ that needs a TA and there is one that's
+                qualified and unassigned.\newline
+                Since there are more TAs than courses, there must be a TA t$_0$ that is unassigned
+                .\newline
+                Since t$_0$ is unassigned, then c$_0$ must have rejected t$_0$, however, since t$
+                _0$ is unassigned, then t$_0$ must be unqualified for c$_0$.\newline
+                $\therefore$ we have a contradiction, and all available TA spots are filled
+                unless unqualified.\newline
+                Claim 2: All TAs are assigned to a course in a stable marriage.\newline
+                Proof: Assume by contradiction that there is a TA t$_0$ that is assigned to
+                course c$_1$ and TA t$_1$ that is assigned to course c$_0$ such that c$_0$
+                prefers t$_0$ over t$_1$ and t$_0$ prefers c$_0$ over c$_1$.\newline
+                Case 1: t$_0$ was never assigned to c$_0$.\newline
+                Since c$_0$ prefers t$_0$ over t$_1$ and c$_0$ is assigned TAs based on preference,
+                then t$_0$ must have been assigned to a course that is higher on t$_0$\'s
+                preference list than c$_0$, which is a contradiction.\newline
+                Case 2: t$_0$ was assigned to c$_0$ and then reassigned.\newline
+                This means that t$_0$ rejected c$_0$ and was assigned to a course that is higher
+                on their preference list than c$_0$.\newline
+                However, since c$_1$ is lower on t$_0$\'s preference list than c$_0$, this is a
+                contradiction.\newline
+                $\therefore$, we have shown that all TAs are assigned to a course in a stable
+                marriage.\newline
+                $\therefore$, we have shown that the algorithm is totally correct.\newline
             \end{proof}
         \end{enumerate}
 
