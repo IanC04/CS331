@@ -141,7 +141,7 @@
                 3 $\cdot$ 2$^{1-1}$ + 2(-1)$^{1}$ & Arithmetic \\
                 = 3 $\cdot$ 2$^{0}$ + 2(-1)       & Simplify   \\
                 = 3 $\cdot$ 1 + -2                & Simplify   \\
-                = 1                               & Simplify   \\
+                = 1                               &            \\
                 \hline
             \end{tabular}\newline
             $\therefore$ P(1) is true.\newline
@@ -151,7 +151,7 @@
                 3 $\cdot$ 2$^{2-1}$ + 2(-1)$^{2}$ & Arithmetic \\
                 = 3 $\cdot$ 2$^{1}$ + 2(1)        & Simplify   \\
                 = 3 $\cdot$ 2 + 2                 & Simplify   \\
-                = 8                               & Simplify   \\
+                = 8                               &            \\
                 \hline
             \end{tabular}\newline
             $\therefore$ P(2) is true.\newline
@@ -166,12 +166,15 @@
         \begin{proof}
             \begin{tabular}{|lr|}
                 \hline
-                a$_{k+1}$ = a$_{k}$ + 2a$_{k-1}$                   & Inductive Hypothesis \\
-                = (3 $\cdot$ 2$^{k-1}$ + 2(-1)$^{k}$) + 2a$_{k-1}$ & Factor out 2         \\
+                a$_{k+1}$                                       & Definition           \\
+                = a$_{k}$ + 2a$_{k-1}$                          & Inductive Hypothesis \\
+                = (3 $\cdot$ 2$^{k-1}$ + 2(-1)$^{k}$) + 2(3 $\cdot$ 2$^{k-2}$ + 2(-1)$^{k-1}$) &
+                Factor out 2 from first group \\
                 = 2(3 $\cdot$ 2$^{k-2}$ + 2(-1)$^{
-                    k-1}$) + 2(3 $\cdot$ 2$^{k-2}$ + 2(-1)$^{k-1}$)    & Combine like terms   \\
-                = 4(3 $\cdot$ 2$^{k-2}$ + 2(-1)$^{k-1}$)           & 4 = 2$^2$            \\
-                = 3 $\cdot$ 2$^{k}$ + 2(-1)$^{k+1}$                &                      \\
+                    k-1}$) + 2(3 $\cdot$ 2$^{k-2}$ + 2(-1)$^{k-1}$) & Combine like terms   \\
+                = 4(3 $\cdot$ 2$^{k-2}$ + 2(-1)$^{k-1}$)        & 4 = 2$^2$            \\
+                = 2$^2$(3 $\cdot$ 2$^{k-2}$ + 2(-1)$^{k-1}$)    & Algebra              \\
+                = 3 $\cdot$ 2$^{k}$ + 2(-1)$^{k+1}$             &                      \\
                 \hline
             \end{tabular}\newline
             $\therefore$, we have shown that P(k + 1) is true, and by induction, P(n) is true for
@@ -181,38 +184,34 @@
         \textbf{(c)} \textbf{(4 points)}\newline
         \texttt{Algorithm 1(Alice)}
         \begin{proof}
-            We need to swap the lines \texttt{Report average as sum / count;} and \texttt{
-                Increase count by 1;} as in the first iteration, we will divide by 0, which is
-            not the correct average.\newline
+            We need to swap the lines\newline
+            \texttt{Report average as sum / count;}\newline
+            \texttt{Increase count by 1;}\newline
+            as in the first iteration, we will divide by 0, which is not the correct average.
         \end{proof}
         \texttt{Algorithm 2(Bob)}
         \begin{proof}
-            First, we show termination.\newline
-            Since each iteration we read one integer, the set of integers needed to be read is
-            decreased by one each iteration, and since the set is finite, the algorithm will
-            terminate.\newline
-            Next, we show correctness.\newline
-            Assume we have to read n integers from the input stream, which we'll call S.\newline
-            \textbf{Base Case: }n = 1\newline
-            average is updated to $\frac{(0 \cdot 0 + S_1)}{0 + 1}$ = S$_1$, which is the correct
-            average, and count is incremented by one which results in count=1.\newline
-            Then we have average=S$_1$ and count=1, which is correct.\newline
-            \textbf{Inductive Hypothesis: }Assume for n = k, average=$\frac{\sum_{i=1}^{k}S_i}{
-                count}$
-            and count=k.\newline
-            \textbf{Inductive Step: }Show for n = k + 1, average=$\frac{\sum_{i=1}^{k+1}S_i}{
-                count + 1}$ and count=k + 1.\newline
-            In the loop, we read the integer S$_{k+1}$ and update average to $\frac{(average*count
-                )+S_{k+1}}{
-                count + 1}$.\newline
-            We have to show that $\sum_{i=1}^{k+1}S_i$ = (average * count) + S$_{k+1}$.\newline
-            We know that average=$\frac{\sum_{i=1}^{k}S_i}{
-                count}$, $\therefore$ average * count = $\sum_{i=1}^{k}S_i$.\newline
-            Adding S$_{k+1}$, we get $\sum_{i=1}^{k+1}S_i$ = (average * count) + S$_{k+1}$.\newline
-            $\therefore$, we can express $\frac{(average*count)+S_{k+1}}{count + 1}$ as $\frac{
-                \sum_{i=1}^{k+1}S_i}{count + 1}$, which is the correct average.\newline
-            count is then incremented by one, which results in count=k+1.\newline
-            $\therefore$, we have shown that the algorithm is correct.\newline
+            Bob's algorithm is correct, shown using loop invariants.\newline
+            Let S be the stream of integers indexed starting at 0.\newline
+            \textbf{Inductive Hypothesis: }Assume at step k, \texttt{average}=avg of the first \texttt{count} elements where \texttt{count}=k.\newline
+            \textbf{Initialization: }Before the first iteration, average=0 and count=0, which is
+            correct, as there are no integers to calculate the average of.\newline
+            \textbf{Maintenance: }Assume the inductive hypothesis is true at the beginning of the
+            kth iteration.\newline
+            $\therefore$, \texttt{average}=avg of the first \texttt{count} elements where \texttt{count}=k.\newline
+            We read in integer $S_{k}$.\newline
+            Next, we focus on the line \texttt{average = (average * count + S$_{k}$) / (count + 1)}.\newline
+            Since \texttt{average}=$\frac{sum}{count}$, after multiplying by \texttt{count} and
+            adding $S_{k}$, the expression yields the sum of the first k+1 elements.\newline
+            Then, we divide by \texttt{count + 1} to get the average of the first k+1 elements.\newline
+            $\therefore$, \texttt{average}=avg of the first \texttt{count+1} elements.\newline
+            \texttt{count} is then incremented by one, which results in \texttt{count}=k+1.\newline
+            $\therefore$, the induction hypothesis is true at the beginning of iteration n = k + 1
+            .\newline
+            \textbf{Termination: }The loop terminates when there are no more integers in the
+            stream, in other words, when k=n, the length of the stream.\newline
+            $\therefore$, \texttt{average}=avg of the first \texttt{count} elements where \texttt{count}=n, which is the average of all the integers in the stream.\newline
+            $\therefore$, we have shown that the algorithm is correct.
         \end{proof}
     \end{homeworkProblem}
 
@@ -227,32 +226,56 @@ int low = 0, high = 1;
 while(E[high] < x) {
     low = high;
     high *= 2;
+    if (high outOfBounds) {
+        break;
+    }
 }
 // Binary search
 while (low <= high) {
     int mid = low + (high - low) / 2; // or (low + high) >>> 1
-    if (E[mid] == x) return mid;
+    if (mid outOfBounds) high = mid - 1;
+    else if (E[mid] == x) return mid;
     else if (E[mid] < x) low = mid + 1;
     else high = mid - 1;
 }
         \end{verbatim}
         \begin{proof}
+            \textbf{Inductive Hypothesis: }Assume at step k, \texttt{low}($2^{k-1}$) is the lower
+            bound of the search space and \texttt{high}($2^k$) is the upper bound of the search
+            space where \texttt{x} is at index $\geq$ low.\newline
+            \textbf{Initialization: }Before the first iteration, low=0 and high=1, and since all
+            elements of E have index $\geq$ 0, then the inductive hypothesis is true.\newline
             The first while loop finds the bounds of the search space, which is O($\log n$) since
             we are exponentially increasing the search space.\newline
-            The second while loop is a binary search, which is O($\log n$).\newline
-            The first part of the algorithm terminates since the high value is doubled each
-            iteration, and won't exceed the length of the array.\newline
-            The second part of the algorithm terminates since the range of the search is halved
-            each iteration.\newline
-            Correctness: We are trying to find x $<$ max in E.\newline
-            Since the array is constructed as \textbf{[sorted$\mid$max$_{size-n}$]}, and max is
-            greater than all elements of the array up to n, then there are 3 cases in each ith
-            iteration:\newline
-            \textbf{Case 1:} x $<$ E[i], then since the array is sorted, x is the lower half of
+            \textbf{Maintenance: }Assume the inductive hypothesis is true at the beginning of the
+            kth iteration.\newline
+            if \texttt{E[high] < x}, then we double the search space while ignoring the current
+            one, as we know that x is greater than the current high value.\newline
+            We set \texttt{low} to \texttt{high} and \texttt{high} to \texttt{high} * 2, which
+            means that \texttt{low} = $2^{k}$ and \texttt{high} = $2^{k+1}$.\newline
+            Since the loop only ran because E[high$_{old}$] $<$ x, and \texttt{low} was set to
+            \texttt{high}, then we know that E[low] $<$ x.\newline
+            $\therefore$, \texttt{x} is at index $\geq$ low.\newline
+            $\therefore$, the induction hypothesis is true at the beginning of iteration n = k +
+            1.\newline
+            \textbf{Termination: }The loop terminates when E[high] $\geq$ x, in other words, when
+            x is in the current search space.\newline
+            $\therefore$, x $\geq$ low.\newline
+            $\therefore$, we have shown that the algorithm is correct.\newline
+            Since the search space is doubled every time until x is in the search space or the
+            search space exceeds the size of the array, then the algorithm is O($\log n$).\newline
+            The second while loop is a modified binary search, which is O($\log n$).\newline
+            We are trying to find x $<$ max in E[low:high].\newline
+            \textbf{Case 1:} mid $>$ $\mid$E$\mid$ $\to$ x is the lower half of
             the search space.\newline
-            \textbf{Case 2:} x $>$ E[i], then since the array is sorted, x is the upper half of
+            \textbf{Case 2:} x $<$ E[mid] $\to$ x is the lower half of
             the search space.\newline
-            \textbf{Case 3:} x = E[i], then we have found the index of x.\newline
+            \textbf{Case 3:} x $>$ E[mid] $\to$ x is the upper half of
+            the search space.\newline
+            \textbf{Case 4:} x = E[mid] $\to$ return mid.\newline
+            $\therefore$, since the array is increasing, then if the element at mid is greater
+            than x, we can ignore all elements after it too, and conversely, if the element at
+            mid is less than x, we can ignore all elements before it.\newline
             $\therefore$, we half the search space each iteration, thus the algorithm is O($\log
             n$).
         \end{proof}
@@ -286,7 +309,6 @@ while (course needs TA) {
             \end{verbatim}
             \item[ii] \textbf{(7 points)}
             \begin{proof}
-                First, we show termination.\newline
                 The sorted list of applicants TAs for each course is strictly decreasing each
                 iteration, $\therefore$ the algorithm will terminate.\newline
                 Next, we show correctness.\newline
