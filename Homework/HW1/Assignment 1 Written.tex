@@ -133,7 +133,7 @@
         \end{proof}
 
         \textbf{Inductive Hypothesis:}
-        \textit{Assume for n = k, P(1), P(2), $\ldots$, P(n) are all true.}\newline
+        \textit{Assume for n = k, P(1), P(2), $\ldots$, P(k) are all true.}\newline
 
         \textbf{Inductive Step:}\newline
         \textit{Show P(k + 1), aka a$_{k+1}$ = 3 $\cdot$ 2$^{k}$ + 2(-1)$^{k+1}$.}
@@ -191,16 +191,22 @@
 
     \begin{homeworkProblem}
         \textbf{(6 points)}\newline
-        \textit{For this problem, I would use binary search, since I know that the array is
-        sorted in ascending order.}
+        \textit{For this problem, I would use a modified binary search, since I know that the
+        array is sorted in ascending order with the target being less than the "max" values
+        appended to the array.}
         \begin{verbatim}
-            int low = 0, high = n - 1;
-            while (low <= high) \{
-                int mid = low + (high - low) / 2;
-                if (E[mid] == x) return mid;
-                else if (A[mid] < x) low = mid + 1;
-                else high = mid - 1;
-            }
+// Finding bounds
+int low = 0, high = 1;
+while(E[high] < x) {
+    low = high;
+    high *= 2;
+}
+while (low <= high) {
+    int mid = low + (high - low) / 2; // or (low + high) >>> 1
+    if (E[mid] == x) return mid;
+    else if (E[mid] < x) low = mid + 1;
+    else high = mid - 1;
+}
         \end{verbatim}
         \begin{proof}
             This algorithm terminates since the range of the search is halved each iteration.\newline
@@ -213,14 +219,14 @@
             \textbf{Case 2:} x $>$ E[i], then since the array is sorted, x is the upper half of
             the search space.\newline
             \textbf{Case 3:} x = E[i], then we have found the index of x.\newline
+            $\therefore$, we half the search space each iteration, thus the algorithm is O($\log
+            n$).
         \end{proof}
 
     \end{homeworkProblem}
 
 
     \begin{homeworkProblem}
-
-
         Your task is to do the following:
         \begin{enumerate}
             \item[i] \textbf{(7 points)}
