@@ -185,8 +185,6 @@
             count is then incremented by one, which results in count=k+1.\newline
             $\therefore$, we have shown that the algorithm is correct.\newline
         \end{proof}
-
-
     \end{homeworkProblem}
 
     \begin{homeworkProblem}
@@ -201,6 +199,7 @@ while(E[high] < x) {
     low = high;
     high *= 2;
 }
+// Binary search
 while (low <= high) {
     int mid = low + (high - low) / 2; // or (low + high) >>> 1
     if (E[mid] == x) return mid;
@@ -209,7 +208,13 @@ while (low <= high) {
 }
         \end{verbatim}
         \begin{proof}
-            This algorithm terminates since the range of the search is halved each iteration.\newline
+            The first while loop finds the bounds of the search space, which is O($\log n$) since
+            we are exponentially increasing the search space.\newline
+            The second while loop is a binary search, which is O($\log n$).\newline
+            The first part of the algorithm terminates since the high value is doubled each
+            iteration, and won't exceed the length of the array.\newline
+            The second part of the algorithm terminates since the range of the search is halved
+            each iteration.\newline
             Correctness: We are trying to find x $<$ max in E.\newline
             Since the array is constructed as \textbf{[sorted$\mid$max$_{size-n}$]}, and max is
             greater than all elements of the array up to n, then there are 3 cases in each ith
@@ -222,7 +227,6 @@ while (low <= high) {
             $\therefore$, we half the search space each iteration, thus the algorithm is O($\log
             n$).
         \end{proof}
-
     \end{homeworkProblem}
 
 
@@ -288,8 +292,6 @@ while (course needs TA) {
                 $\therefore$, we have shown that the algorithm is totally correct.\newline
             \end{proof}
         \end{enumerate}
-
-
     \end{homeworkProblem}
 \end{document}
 
