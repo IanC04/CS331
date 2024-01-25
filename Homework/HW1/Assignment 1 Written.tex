@@ -217,7 +217,8 @@
 
     \begin{homeworkProblem}
         \textbf{(6 points)}\newline
-        \textit{For this problem, I would use a modified binary search, since I know that the
+        \textit{For this problem, I would use a modified binary search where the I would have the
+        find the appropriate initial search space as the bounds are unknown. I know that the
         array is sorted in ascending order with the target being less than the "max" values
         appended to the array.}
         \begin{verbatim}
@@ -226,14 +227,14 @@ int low = 0, high = 1;
 while(E[high] < x) {
     low = high;
     high *= 2;
-    if (high outOfBounds) {
+    if (high OutOfBounds) {
         break;
     }
 }
 // Binary search
 while (low <= high) {
     int mid = low + (high - low) / 2; // or (low + high) >>> 1
-    if (mid outOfBounds) high = mid - 1;
+    if (mid OutOfBounds) high = mid - 1;
     else if (E[mid] == x) return mid;
     else if (E[mid] < x) low = mid + 1;
     else high = mid - 1;
@@ -293,7 +294,7 @@ number of TAs needed
 while (course needs TA) {
     c = a course that needs a TA
     ta = first TA in c's preference list that c hasn't tried to assign
-    if (ta is unqualified for c) {
+    if (ta is unqualified for c or ta doesn't want to teach c) {
         c rejects ta
     } else if (ta is unassigned) {
         assign ta to c
@@ -301,15 +302,14 @@ while (course needs TA) {
         c' = ta's current course
         unassign ta from c'
         assign ta to c
-    }
-    else {
+    } else {
         ta rejects c
     }
 }
             \end{verbatim}
             \item[ii] \textbf{(7 points)}
             \begin{proof}
-                The sorted list of applicants TAs for each course is strictly decreasing each
+                The sorted list of applicant TAs for each course is strictly decreasing each
                 iteration, $\therefore$ the algorithm will terminate.\newline
                 Next, we show correctness.\newline
                 Observation 1: Courses are assigned TAs in order of preference.\newline
@@ -319,12 +319,13 @@ while (course needs TA) {
                 Proof: Assume by contradiction that there is an available TA spot upon termination,
                 in other words, there is a course c$_0$ that needs a TA and there is one that's
                 qualified and unassigned.\newline
-                Since there are more TAs than courses, there must be a TA t$_0$ that is unassigned
-                .\newline
+                Since there are more TAs than total course spots, there must be a TA t$_0$ that is
+                unassigned.\newline
                 Since t$_0$ is unassigned, then c$_0$ must have rejected t$_0$, however, since t$
-                _0$ is unassigned, then t$_0$ must be unqualified for c$_0$.\newline
+                _0$ is unassigned, then t$_0$ must be unqualified or didn't want to
+                teach c$_0$.\newline
                 $\therefore$ we have a contradiction, and all available TA spots are filled
-                unless unqualified.\newline
+                unless unqualified or the TA doesn't want to teach the class.\newline
                 Claim 2: All TAs are assigned to a course in a stable marriage.\newline
                 Proof: Assume by contradiction that there is a TA t$_0$ that is assigned to
                 course c$_1$ and TA t$_1$ that is assigned to course c$_0$ such that c$_0$
