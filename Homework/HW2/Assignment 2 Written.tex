@@ -3,30 +3,32 @@
 \usepackage{setspace}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
+\usepackage{verbatim}
 \usepackage{extramarks}
-\usepackage{hyperref}
-\hypersetup{
-    urlcolor=blue,
-}
 \usepackage[ruled,vlined]{algorithm2e}
 \usepackage{chngpage}
 \usepackage{soul,color}
 \usepackage{graphicx,float,wrapfig}
 \usepackage{ listings}
-\usepackage{comment}
+\usepackage{enumitem}
 \newcommand{\Class}{ \normalsize CS 331: Algorithms and Complexity (Spring 2024)\\
-	\small	Unique Number: 50930, 50935 50940, 50945
+\small    Unique Number: 52765, 52770
 }
+
+
 %\newcommand{\ClassInstructor}{Fares}
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist
+
 % Homework Specific Information. Change it to your own
-\newcommand{\Title}{Assignment 1}
-\newcommand{\DueDate}{Thursday, 25 January, by 11.59pm}
+
+\newcommand{\Title}{Assignment 2}
+\newcommand{\DueDate}{Thursday, 1 Febrauary, by 11.59pm}
+
 \newcommand{\StudentName}{}
 \newcommand{\StudentClass}{}
 \newcommand{\StudentNumber}{}
 
-
-\setlength\parindent{0pt}
 % In case you need to adjust margins:
 \topmargin=-0.45in      %
 \evensidemargin=0in     %
@@ -49,17 +51,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Some tools
 \newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
-    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
-\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
-    \nobreak\extramarks{#1}{}\nobreak}%
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page
+\ldots}\nobreak%
+\nobreak\extramarks{#1}{}\nobreak}%
 
 \newcommand{\homeworkProblemName}{}%
 \newcounter{homeworkProblemCounter}%
 \newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
 {\stepcounter{homeworkProblemCounter}%
-    \renewcommand{\homeworkProblemName}{#1}%
-    \section*{\homeworkProblemName}%
-    \enterProblemHeader{\homeworkProblemName}}%
+\renewcommand{\homeworkProblemName}{#1}%
+\section*{\homeworkProblemName}%
+\enterProblemHeader{\homeworkProblemName}}%
 {\exitProblemHeader{\homeworkProblemName}}%
 
 \newcommand{\homeworkSectionName}{}%
@@ -73,7 +76,7 @@
     \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
     \subsection*{\homeworkSectionName}%
     \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
-{\enterProblemHeader{\homeworkProblemName}%
+    {\enterProblemHeader{\homeworkProblemName}%
 
     % We put the blank space above in order to make sure this margin
     % change doesn't happen too soon.
@@ -81,10 +84,6 @@
 
 \newcommand{\Answer}{\ \\\textbf{Answer:} }
 \newcommand{\Acknowledgement}[1]{\ \\{\bf Acknowledgement:} #1}
-
-
-\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
-\let\endchangemargin=\endlist
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -96,40 +95,52 @@
 \author{\textbf{\StudentName}\ \ \StudentClass\ \ \StudentNumber}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\setlist[enumerate,1]{label=\bfseries(\alph*)}
+\newcommand{\maxpt}[1]{\ifthenelse{\equal{#1}{1}}{\textbf{(#1 pt)}}{\textbf{(#1 pts)}}}
+
 \begin{document}
-        \maketitle \thispagestyle{empty}
-
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        % Begin edit from here
-
-\begin{homeworkProblem}
-\textbf{(a) (3 points)} 
-
-\textbf{(b) (3 points)} 
-
-\textbf{(c)} \textbf{(4 points)} 
+    \maketitle \thispagestyle{empty}
 
 
 
-\end{homeworkProblem} 
+    \begin{homeworkProblem}[Problem 1: Short Answers Section]
+        For this section, restrict answers to no more than a few sentences.
+        Most answers can be expressed in a single sentence. Unless otherwise
+        stated, briefly justify. No proofs are necessary for this section.
+        \begin{enumerate}
+            \item
+            True, since at first there is a root node with no edges. Every subsequent node adds one
+            edge.
+            \item
+            True, BFS would iterate every edge set of every vertex, so $\mid V\mid\cdot\mid V\mid$ edges.
+            \item
 
-\begin{homeworkProblem} \textbf{(6 points)}
+            \item
+            False, DFS will in general output deeper trees, but not always.
+            \item
+            True, if there were multiple paths, then that means there's a cycle. Trees have no
+            cycles.
+            \item
 
-\end{homeworkProblem}
+        \end{enumerate}
+
+    \end{homeworkProblem}
+
+    \begin{homeworkProblem}
+
+        \begin{enumerate}
+            [=(\alph*)]
+            \item
+            \item
+        \end{enumerate}
 
 
-\begin{homeworkProblem}
+    \end{homeworkProblem}
 
-    
-     Your task is to do the following:
-     \begin{enumerate}
-        \item[i] \textbf{(7 points)}
-        
-        \item[ii] \textbf{(7 points)}
-     \end{enumerate}
+    \begin{homeworkProblem}
 
 
-\end{homeworkProblem}
+
+    \end{homeworkProblem}
+
 \end{document}
-
- 
