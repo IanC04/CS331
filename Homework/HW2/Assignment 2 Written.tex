@@ -112,16 +112,16 @@
             True, since at first there is a root node with no edges. Every subsequent node adds one
             edge.
             \item
+            True
+            \item
             True, BFS would iterate every edge set of every vertex, so $\mid V\mid\cdot\mid V\mid$ edges.
             \item
-
+            True
             \item
             False, DFS will in general output deeper trees, but not always.
             \item
             True, if there were multiple paths, then that means there's a cycle. Trees have no
             cycles.
-            \item
-
         \end{enumerate}
 
     \end{homeworkProblem}
@@ -131,16 +131,23 @@
         \begin{enumerate}
             [=(\alph*)]
             \item
+            True, we can alternate the colors in each layer of the tree. Then, every edge in the
+            tree will be touching a node on layer$_n$ and one on layer$_{n+1}$, which are
+            different colors.
             \item
+            Nodes can't connect to other nodes on the same layer, as that would create an odd
+            length cycle. However, they can connect to nodes on different layers, so we can
+            multiply the count of nodes per layer together.
         \end{enumerate}
 
 
     \end{homeworkProblem}
 
     \begin{homeworkProblem}
-
-
-
+        I would run a breadth-first search, which has O($\mid V\mid +\mid E\mid$).\newline
+        \begin{proof}
+            % TODO: Finish proof
+        \end{proof}
     \end{homeworkProblem}
 
 \end{document}
