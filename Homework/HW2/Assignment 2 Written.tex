@@ -10,6 +10,10 @@
 \usepackage{soul,color}
 \usepackage{graphicx,float,wrapfig}
 \usepackage{ listings}
+\lstset{
+    basicstyle=\ttfamily,
+    mathescape
+}
 \usepackage{enumitem}
 \newcommand{\Class}{ \normalsize CS 331: Algorithms and Complexity (Spring 2024)\\
 \small    Unique Number: 52765, 52770
@@ -112,7 +116,7 @@
             True, since at first there is a root node with no edges. Every subsequent node adds one
             edge.
             \item
-            True
+            False, there may be cycles.
             \item
             True, BFS would iterate every edge set of every vertex, so $\mid V\mid\cdot\mid V\mid$ edges.
             \item
@@ -133,7 +137,7 @@
             \item
             True, we can alternate the colors in each layer of the tree. Then, every edge in the
             tree will be touching a node on layer$_n$ and one on layer$_{n+1}$, which are
-            different colors.
+            different colors. An algorithm is to run BFS starting from the tree's root.
             \item
             Nodes can't connect to other nodes on the same layer, as that would create an odd
             length cycle. However, they can connect to nodes on different layers, so we can
@@ -146,8 +150,39 @@
     \begin{homeworkProblem}
         I would run a breadth-first search, which has O($\mid V\mid +\mid E\mid$).\newline
         \begin{proof}
-            % TODO: Finish proof
+            Inductive hypothesis: At step k, all possible routes to nodes of distance k are
+            stored in the path\_count variable of each node.\newline
+            Base case: At step 0, the path\_count of the start node is 1, and all other nodes are
+            unvisited.\newline
+            Inductive step: At step k, we have a list of nodes of distance k. For each node, it
+            stores the distance from s and the number of paths to it. For each node, we iterate
+            through its edges. If the edge's node has not been visited, we set its distance to
+            k+1, and by BFS, it's the shortest distance. We also set its path\_count to the
+            current node's + the node's path\_count. If the edge's node has been visited, we don
+            \'t ned to add it again to the queue, but we do need to check if the distance is
+            greater than the target's, as it means we can stop the algorithm.\newline
+            Termination: The algorithm terminates when the target node's distance is greater than
+            the current node's distance. At this point, we return the target node's path\_count.
         \end{proof}
+        \begin{verbatim}
+def bfs(graph, start){
+    Initialize all nodes to path_count = 0 and distance = infinity
+    Initialize s to path_count = 1 and distance = 0
+    Initialize queue to list(s)
+    while queue is not empty:
+    node = queue.poll()
+    if node.distance > t.distance:
+        break
+    for neighbor in node.neighbors:
+    if neighbor.distance == infinity:
+    neighbor.distance = node.distance + 1
+    neighbor.path_count = node.path_count
+    queue.add(neighbor)
+    else if neighbor.distance == node.distance + 1:
+    neighbor.path_count += node.path_count
+    return t.path_count
+}
+        \end{verbatim}
     \end{homeworkProblem}
 
 \end{document}
