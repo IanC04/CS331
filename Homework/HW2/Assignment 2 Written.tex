@@ -117,21 +117,21 @@
             edge.
             \item
             False, there may be cycles.
+            However, DAG $\rightleftarrows$ Topological Ordering.
             \item
-            True, BFS would iterate every edge set of every vertex, so $\mid V\mid\cdot\mid V\mid$ edges.
+            True, BFS would iterate every edge set of every vertex, so $\lvert V\rvert\cdot\lvert V\rvert$ edges.
             \item
-            True, iterate through the node's row of the matrix.
+            True, iterate through the node's row of the matrix, which has $\lvert V\rvert$ elements.
             \item
             False, DFS will in general output deeper trees, but not always.
+            Counterexample: a tree with only a root node.
             \item
-            True, if there were multiple paths, then that means there's a cycle. Trees have no
-            cycles.
+            True, if there were multiple paths, then that means there's a cycle.
+            Trees have no cycles.
         \end{enumerate}
-
     \end{homeworkProblem}
 
     \begin{homeworkProblem}
-
         \begin{enumerate}
             [=(\alph*)]
             \item
@@ -142,11 +142,25 @@
             Nodes can't connect to other nodes on the same layer, as that would create an odd
             length cycle. They also can't connect to nodes an even number of layers away, as that
             would connect two nodes of the same color. So, they can only connect to nodes an odd
-            number of layers away.
-            % TODO: add algorithm
+            number of layers away. We know that each node of a color can connect to every node of
+            the other color and that a tree has n - 1 edges.
+            \begin{verbatim}
+def add_edges(graph):
+    black = 0
+    white = 0
+    Initialize queue as storing nodes with their associated depth
+    Add root node to queue with depth 0
+    while queue is not empty:
+        node, depth = queue.poll()
+        if depth % 2 == 0:
+            black += 1
+        else:
+            white += 1
+        for neighbor in node.neighbors:
+                queue.add(neighbor, depth + 1)
+    return black * white - (n - 1)
+            \end{verbatim}
         \end{enumerate}
-
-
     \end{homeworkProblem}
 
     \begin{homeworkProblem}
@@ -172,23 +186,22 @@
             path\_count.
         \end{proof}
         \begin{verbatim}
-def bfs(graph, start){
+def bfs(graph, start):
     Initialize all nodes to path_count = 0 and distance = infinity
     Initialize s to path_count = 1 and distance = 0
     Initialize queue to list(s)
     while queue is not empty:
-    node = queue.poll()
-    if node.distance > t.distance:
-        break
-    for neighbor in node.neighbors:
-        if neighbor.distance == infinity:
-            neighbor.distance = node.distance + 1
-            neighbor.path_count = node.path_count
-            queue.add(neighbor)
-        else if neighbor.distance == node.distance + 1:
-            neighbor.path_count += node.path_count
+        node = queue.poll()
+        if node.distance > t.distance:
+            break
+        for neighbor in node.neighbors:
+            if neighbor.distance == infinity:
+                neighbor.distance = node.distance + 1
+                neighbor.path_count = node.path_count
+                queue.add(neighbor)
+            else if neighbor.distance == node.distance + 1:
+                neighbor.path_count += node.path_count
     return t.path_count
-}
         \end{verbatim}
     \end{homeworkProblem}
 
