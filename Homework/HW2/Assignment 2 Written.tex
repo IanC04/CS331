@@ -120,7 +120,7 @@
             \item
             True, BFS would iterate every edge set of every vertex, so $\mid V\mid\cdot\mid V\mid$ edges.
             \item
-            True
+            True, iterate through the node's row of the matrix.
             \item
             False, DFS will in general output deeper trees, but not always.
             \item
@@ -140,8 +140,10 @@
             different colors. An algorithm is to run BFS starting from the tree's root.
             \item
             Nodes can't connect to other nodes on the same layer, as that would create an odd
-            length cycle. However, they can connect to nodes on different layers, so we can
-            multiply the count of nodes per layer together.
+            length cycle. They also can't connect to nodes an even number of layers away, as that
+            would connect two nodes of the same color. So, they can only connect to nodes an odd
+            number of layers away.
+            % TODO: add algorithm
         \end{enumerate}
 
 
@@ -150,19 +152,24 @@
     \begin{homeworkProblem}
         I would run a breadth-first search, which has O($\mid V\mid +\mid E\mid$).\newline
         \begin{proof}
-            Inductive hypothesis: At step k, all possible routes to nodes of distance k are
-            stored in the path\_count variable of each node.\newline
-            Base case: At step 0, the path\_count of the start node is 1, and all other nodes are
-            unvisited.\newline
-            Inductive step: At step k, we have a list of nodes of distance k. For each node, it
-            stores the distance from s and the number of paths to it. For each node, we iterate
-            through its edges. If the edge's node has not been visited, we set its distance to
-            k+1, and by BFS, it's the shortest distance. We also set its path\_count to the
-            current node's + the node's path\_count. If the edge's node has been visited, we don
-            \'t ned to add it again to the queue, but we do need to check if the distance is
-            greater than the target's, as it means we can stop the algorithm.\newline
-            Termination: The algorithm terminates when the target node's distance is greater than
-            the current node's distance. At this point, we return the target node's path\_count.
+            \textbf{Inductive hypothesis:} At step k, all possible routes to nodes of distance k are
+            stored in the path\_count variable of each node and the queue stores all nodes k
+            distance away from the s.\newline
+            \textbf{Initialization:} At step 0, the path\_count of the start node is 1, and all
+            other nodes are unvisited. The queue stores only s.\newline
+            \textbf{Maintenance:} At step k, we have a list of nodes of distance k. For each
+            node, it stores the distance from s and the number of paths to it. For each node, we
+            iterate through its edges. If the edge's node has not been visited, we set its
+            distance to k+1, and by BFS, it's the shortest distance. We also set its
+            path\_count to the current node's + the node's path\_count. If the edge's node has
+            been visited, we don't need to add it again to the queue, but we do need to
+            increment its path\_count by the current node's path\_count. We do this for all nodes
+            of distance k, and then we increment k.\newline
+            Now the queue contains all nodes of distance k+1 and the number of unique paths to it
+            .\newline
+            \textbf{Termination:} The algorithm terminates when the target node's distance is
+            greater than the current node's distance. At this point, we return the target node's
+            path\_count.
         \end{proof}
         \begin{verbatim}
 def bfs(graph, start){
@@ -174,12 +181,12 @@ def bfs(graph, start){
     if node.distance > t.distance:
         break
     for neighbor in node.neighbors:
-    if neighbor.distance == infinity:
-    neighbor.distance = node.distance + 1
-    neighbor.path_count = node.path_count
-    queue.add(neighbor)
-    else if neighbor.distance == node.distance + 1:
-    neighbor.path_count += node.path_count
+        if neighbor.distance == infinity:
+            neighbor.distance = node.distance + 1
+            neighbor.path_count = node.path_count
+            queue.add(neighbor)
+        else if neighbor.distance == node.distance + 1:
+            neighbor.path_count += node.path_count
     return t.path_count
 }
         \end{verbatim}
