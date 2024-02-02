@@ -148,68 +148,85 @@
             would connect two nodes of the same color. So, they can only connect to nodes an odd
             number of layers away. We know that each node of a color can connect to every node of
             the other color and that a tree has n - 1 edges.
-            \begin{verbatim}
-def add_edges(graph):
-    black = 0
-    white = 0
-    Initialize queue as storing nodes with their associated depth
-    Add root node to queue with depth 0
-    while queue is not empty:
-        node, depth = queue.poll()
-        if depth % 2 == 0:
-            black += 1
-        else:
-            white += 1
-        for neighbor in node.neighbors:
-                queue.add(neighbor, depth + 1)
-    return black * white - (n - 1)
-            \end{verbatim}
+            An algorithm would be to count up the number of nodes of each color by going through
+            the tree starting from the root using BFS. Each layer will alternate colors, and then we
+            multiply the count of each color together. After, we would subtract (n - 1) to account
+            for the original edges.
+            This yields us the maximum number of edges we can add to keep the graph bipartite.
+            As we have to iterate through every node, the algorithm will run in O(n).
+            %             \begin{verbatim}
+            % def add_edges(graph):
+            %     black = 0
+            %     white = 0
+            %     Initialize queue as storing nodes with their associated depth
+            %     Add root node to queue with depth 0
+            %     while queue is not empty:
+            %         node, depth = queue.poll()
+            %         if depth % 2 == 0:
+            %             black += 1
+            %         else:
+            %             white += 1
+            %         for neighbor in node.neighbors:
+            %                 queue.add(neighbor, depth + 1)
+            %     return black * white - (n - 1)
+            %             \end{verbatim}
         \end{enumerate}
     \end{homeworkProblem}
 
     \begin{homeworkProblem}
         I would run a breadth-first search, which has O($\mid V\mid +\mid E\mid$).\newline
+        First, I would initialize all nodes to have a distance of infinity and a path\_count of 0.
+        Then, I would initialize the start node to have a distance of 0 and a path\_count of 1.
+        I would then initialize a queue with the start node.\newline
+        While the queue is not empty, I would pop the first node from the queue. If the node's
+        distance is greater than the target node's distance, I would break. Otherwise, I would
+        iterate through the node's neighbors. If the neighbor's distance is infinity, I would set
+        the neighbor's distance to the current node's distance + 1 and its path\_count to the
+        current node's path\_count. I would then add the neighbor to the queue. If the neighbor
+        's distance is equal to the current node's distance + 1, I would increment the neighbor
+        's path\_count by the current node's path\_count. After the loop exits, I would then return
+        the target node's path\_count.\newline
         \begin{proof}
-            The number of unvisited nodes is strictly decreasing each iteration, $\therefore$ the
+            The queue stores each node only once and polls one each iteration, $\therefore$ the
             algorithm will terminate.\newline
-            \textbf{Inductive hypothesis:} At step k, all possible routes to nodes of distance k are
+            \textbf{Inductive Hypothesis:} At step k, all possible routes to nodes of distance k are
             stored in the path\_count variable of each node and the queue stores all nodes k
             distance away from the s.\newline
-            \textbf{Initialization:} At step 0, the path\_count of the start node is 1, and all
-            other nodes are unvisited. The queue stores only s.\newline
+            \textbf{Initialization:} At step 0, the path\_count of the start node is 1. The
+            queue stores only s, which is correct.\newline
             \textbf{Maintenance:} At step k, we have a list of nodes of distance k. For each
             node, it stores the distance from s and the number of paths to it. For each node, we
-            iterate through its edges. If the edge's node has not been visited, we set its
-            distance to k+1, and by BFS, it's the shortest distance. We also set its
-            path\_count to the current node's + the node's path\_count. If the edge's node has
-            been visited, we don't need to add it again to the queue, but we do need to
+            iterate through its neighbors. If the neighbor has not been visited, i.e. distance =
+            $\infty$, we set its distance to k+1, and by BFS, it's the shortest distance. We also
+            set its path\_count to the current node's + the node's path\_count. If the edge's
+            node has been visited, we don't need to add it again to the queue, but we do need to
             increment its path\_count by the current node's path\_count. We won't add nodes
             already visited, since their distance wouldn't be k + 1. We do this for
             all nodes of distance k, and then we increment k.\newline
-            Now the queue contains all nodes of distance k+1 and the number of unique paths to it
+            Now the queue contains all nodes of distance k+1 and the number of unique paths to them
             .\newline
             \textbf{Termination:} The algorithm terminates when the target node's distance is
-            greater than the current node's distance. At this point, we return the target node's
-            path\_count.
+            less than the current node's distance, which means we are done processing shortst
+            paths to the target. At this point, we return the target node's path\_count.
         \end{proof}
-        \begin{verbatim}
-def bfs(graph, start):
-    Initialize all nodes to path_count = 0 and distance = infinity
-    Initialize s to path_count = 1 and distance = 0
-    Initialize queue to list(s)
-    while queue is not empty:
-        node = queue.poll()
-        if node.distance > t.distance:
-            break
-        for neighbor in node.neighbors:
-            if neighbor.distance == infinity:
-                neighbor.distance = node.distance + 1
-                neighbor.path_count = node.path_count
-                queue.add(neighbor)
-            else if neighbor.distance == node.distance + 1:
-                neighbor.path_count += node.path_count
-    return t.path_count
-        \end{verbatim}
+        %         \begin{verbatim}
+        % def bfs(graph, start):
+        %     Initialize all nodes to path_count = 0 and distance = infinity
+        %     Initialize s to path_count = 1 and distance = 0
+        %     Initialize queue to list(s)
+        %     while queue is not empty:
+        %         node = queue.poll()
+        %         if node.distance > t.distance:
+        %             break
+        %         for neighbor in node.neighbors:
+        %             if neighbor.distance == infinity:
+        %                 neighbor.distance = node.distance + 1
+        %                 neighbor.path_count = node.path_count
+        %                 queue.add(neighbor)
+        %             else if neighbor.distance == node.distance + 1:
+        %                 neighbor.path_count += node.path_count
+        %     return t.path_count
+        %         \end{verbatim}
     \end{homeworkProblem}
 
 \end{document}
