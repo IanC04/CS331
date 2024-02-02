@@ -121,7 +121,9 @@
             \item
             True, BFS would iterate every edge set of every vertex, so $\lvert V\rvert\cdot\lvert V\rvert$ edges.
             \item
-            True, iterate through the node's row of the matrix, which has $\lvert V\rvert$ elements.
+            It is $\theta(\lvert V \rvert)$ to iterate through the node's row of the matrix, which
+            has $\lvert V\rvert$ elements. It is thus $\theta(\lvert V^2 \rvert)$ to iterate the
+            entire matrix with all the edges.
             \item
             False, DFS will in general output deeper trees, but not always.
             Counterexample: a tree with only a root node.
@@ -138,6 +140,8 @@
             True, we can alternate the colors in each layer of the tree. Then, every edge in the
             tree will be touching a node on layer$_n$ and one on layer$_{n+1}$, which are
             different colors. An algorithm is to run BFS starting from the tree's root.
+            We alternate the colors of the nodes at each layer. Since we visit every node, the
+            algorithm will run in O(n).
             \item
             Nodes can't connect to other nodes on the same layer, as that would create an odd
             length cycle. They also can't connect to nodes an even number of layers away, as that
@@ -166,6 +170,8 @@ def add_edges(graph):
     \begin{homeworkProblem}
         I would run a breadth-first search, which has O($\mid V\mid +\mid E\mid$).\newline
         \begin{proof}
+            The number of unvisited nodes is strictly decreasing each iteration, $\therefore$ the
+            algorithm will terminate.\newline
             \textbf{Inductive hypothesis:} At step k, all possible routes to nodes of distance k are
             stored in the path\_count variable of each node and the queue stores all nodes k
             distance away from the s.\newline
@@ -177,8 +183,9 @@ def add_edges(graph):
             distance to k+1, and by BFS, it's the shortest distance. We also set its
             path\_count to the current node's + the node's path\_count. If the edge's node has
             been visited, we don't need to add it again to the queue, but we do need to
-            increment its path\_count by the current node's path\_count. We do this for all nodes
-            of distance k, and then we increment k.\newline
+            increment its path\_count by the current node's path\_count. We won't add nodes
+            already visited, since their distance wouldn't be k + 1. We do this for
+            all nodes of distance k, and then we increment k.\newline
             Now the queue contains all nodes of distance k+1 and the number of unique paths to it
             .\newline
             \textbf{Termination:} The algorithm terminates when the target node's distance is
