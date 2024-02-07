@@ -176,8 +176,36 @@ This yields (1 * 1) + (2 * 4) = 9
             \end{proof}
             \item (Maximum time-scaled value first) Pick task $i$ that has maximum $p(i)/t(i)$.
             \begin{proof}
-                This is optimal.
-                % TODO Answer
+                This is optimal.\newline
+                I will prove this using the exchange argument.\newline
+                Let the optimal solution $\mathbb{O} = (o_1, o_2, \ldots, o_n)$ be the sequence of
+                tasks that minimizes the total value.\newline
+                Let the greedy solution $\mathbb{G} = (g_1, g_2, \ldots, g_n)$ be the greedy
+                solution where we pick the task with the maximum $p(i)/t(i)$ first.\newline
+                Assume there are tasks $(o_i, o_j)$ in $\mathbb{O}$ that is out of order in $\mathbb{G}$
+                .\newline
+                We can also assume they're consecutive in $\mathbb{O}$, since we can just
+                iteratively swap consecutive tasks.\newline
+                $\therefore$, we have to show the greedy solution doesn't increase the total
+                value of the tasks after swapping them.\newline
+                These two tasks have penalty $p(o_i) \cdot t(o_i) + p(o_j) \cdot (t(o_i) + t(o_j))$
+                in $\mathbb{O}$.\newline
+                We can expand this to $p(o_i) \cdot t(o_i) + p(o_j) \cdot t(o_i) + p(o_j) \cdot t(
+                o_j)$.\newline
+                After swapping them, the penalty becomes $p(o_j) \cdot t(o_j) + p(o_i) \cdot (t(o_i)
+                + t(o_j))$.\newline
+                We can expand this to $p(o_j) \cdot t(o_j) + p(o_i) \cdot t(o_i) + p(o_i) \cdot t(
+                o_j)$.\newline
+                Now we compare $p(o_i) \cdot t(o_i) + p(o_j) \cdot t(o_i) + p(o_j) \cdot t(
+                o_j)$ \textquestiondown\;$p(o_j) \cdot t(o_j) + p(o_i) \cdot t(o_i) + p(o_i) \cdot t(
+                o_j)$.\newline
+                We can subtract $p(o_i) \cdot t(o_i)$ and $p(o_j) \cdot t(o_j)$ from both sides
+                to get $p(o_j) \cdot t(o_i)$ \textquestiondown\;$p(o_i) \cdot t(o_j)$.\newline
+                Divide both sides by $t(o_i) \cdot t(o_j)$ to get $\frac{p(o_j)}{t(o_j)}$ \textquestiondown\;$\frac{p(o_i)}{t(o_i)}$.\newline
+                Then, by definition of $\mathbb{G}$, $\frac{p(o_j)}{t(o_j)} \geq \frac{p(o_i)}{t(
+                    o_i)}$ since $o_j$ was before $o_i$ in the greedy solution.\newline
+                $\therefore$, the optimal solution $\geq$ the greedy solution.\newline
+                $\therefore$, the greedy solution is optimal.
             \end{proof}
         \end{enumerate}
     \end{homeworkProblem}
@@ -185,7 +213,22 @@ This yields (1 * 1) + (2 * 4) = 9
     \begin{homeworkProblem}
         \textbf{(10 points)}
         Yes
-        % TODO Answer
+        \begin{proof}
+            Assume by contradiction that Dijkstra's algorithm picks a different set of edges
+            after doubling the weights of the edges.\newline
+            Let $\mathbb{D}$ be the set of edges picked by Dijkstra's algorithm before doubling
+            the weights of the edges, we'll denote its weight as $W_{D}$.\newline
+            Let $\mathbb{D'}$ be the set of edges picked by Dijkstra's algorithm after doubling
+            the weights of the edges, we'll denote its weight as $W_{D'}$.\newline
+            Assume $\mathbb{D'} \neq \mathbb{D}$.\newline
+            Since Dijkstra's algorithm picks the path with the minimum weight, then $W_{D'} \leq
+            2 \cdot W_{D}$.\newline
+            Then, since $W_{D'}$ is the total weight of the doubled edges, then the total weight
+            of the path before doubling the edges is $W_{D'} / 2$.\newline
+            Using the previous inequality, this implies $W_{D'} / 2 \leq W_{D}$.\newline
+            Then, $\mathbb{D'}$ has the same path weight as $\mathbb{D}$.\newline
+            % TODO Finish proof
+        \end{proof}
     \end{homeworkProblem}
 
 \end{document}
