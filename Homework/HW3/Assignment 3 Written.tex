@@ -214,7 +214,9 @@ This yields (1 * 1) + (2 * 4) = 9
 
     \begin{homeworkProblem}
         \textbf{(10 points)}
-        Yes
+        Yes, unless the graph has edges of equal weight with equal path weight and length from start
+        to target node.\newline
+        \includegraphics[width=0.75\textwidth]{Dijkstra}
         \begin{proof}
             Assume by contradiction that Dijkstra's algorithm picks a different set of edges
             after doubling the weights of the edges.\newline
@@ -233,19 +235,17 @@ This yields (1 * 1) + (2 * 4) = 9
             Now, we show that $\mathbb{D'}$ has the same edges as $\mathbb{D}$.\newline
             Assume by contradiction that $\mathbb{D'}$ has a different set of edges than
             $\mathbb{D}$.\newline
-            Let the first differing edge be $(u, v)$.\newline
-            Then, the weight of the path from the source to $u$ is the same in
-            $\mathbb{D}$ and $\mathbb{D'}$.\newline
-            Then, the weight of the path from the source to $v$ is the same in both
-$\mathbb{D}$ and $\mathbb{D'}$ since Dijkstra's algorithm picks the path with the minimum weight
-            greedily.\newline
-            Then, the weight of the path from the source to $v$ in $\mathbb{D'}$ is the same as
-            the weight of the path from the source to $v$ in $\mathbb{D}$, which means either
-            there are two edges with equivalent weight or it's the same edge.\newline
-            However, since we assumed that $\mathbb{D'}$ has a different set of edges than
-            $\mathbb{D}$, then there must be an edge with a different weight.\newline
-            $\therefore$, $\mathbb{D'}$ has the same set of edges as $\mathbb{D}$.\newline
-            $\therefore$, $\mathbb{D'} = \mathbb{D}$
+            Let the first differing edge be $(u, v)$ in $\mathbb{D}$.\newline
+            Then, the weight of the path from the source to $u$ in $\mathbb{D'}$ = $2 \cdot \mathbb{D}$.\newline
+            Then, since Dijkstra's algorithm picks the path with the minimum weight, then that
+            means $\mathbb{D'}$ found a cheaper edge.\newline
+            However, since $(u, v)$ is the cheapest edge in $\mathbb{D}$, then $\mathbb{D'}$
+            should have picked it since after doubling it retains the quality of being the cheapest
+            .\newline
+            This is a contradiction, so $\mathbb{D'}$ has the same set of edges as $\mathbb{D}$
+            .\newline
+            $\therefore$, Dijkstra's algorithm picks the same set of edges after doubling the
+            weights of the edges.
         \end{proof}
     \end{homeworkProblem}
 
