@@ -129,10 +129,12 @@
             \item \maxpt{2}
             False, Counterexample:
             \begin{verbatim}
-(1, 2), (2, 3), (1, 3)
-Pick (1, 3) since it has the largest time interval
-Since it only conflicts with (1, 2) and (2, 3), we can pick it
-However, the optimal solution is to pick (1, 2) and (2, 3)
+(1, 4), (4, 7), (3, 5), (3, 5)
+Try (1, 4), but it has 2 conflicts, so discard it
+Try (4, 7), but it has 2 conflicts, so discard it
+Pick (3, 5), and since (1, 4) and (4, 7) are discarded, it has only one conflict
+Then, our solution yields one job
+However, the optimal solution is to pick (1, 4) and (4, 7)
             \end{verbatim}
             \item \maxpt{3}
             No, the shortest path is not necessarily the path with the fewest edges, Counterexample:
@@ -226,8 +228,24 @@ This yields (1 * 1) + (2 * 4) = 9
             Then, since $W_{D'}$ is the total weight of the doubled edges, then the total weight
             of the path before doubling the edges is $W_{D'} / 2$.\newline
             Using the previous inequality, this implies $W_{D'} / 2 \leq W_{D}$.\newline
+            Since $W_{D}$ is the minimum weight of the path, then $W_{D'} / 2 = W_{D}$.\newline
             Then, $\mathbb{D'}$ has the same path weight as $\mathbb{D}$.\newline
-            % TODO Finish proof
+            Now, we show that $\mathbb{D'}$ has the same edges as $\mathbb{D}$.\newline
+            Assume by contradiction that $\mathbb{D'}$ has a different set of edges than
+            $\mathbb{D}$.\newline
+            Let the first differing edge be $(u, v)$.\newline
+            Then, the weight of the path from the source to $u$ is the same in
+            $\mathbb{D}$ and $\mathbb{D'}$.\newline
+            Then, the weight of the path from the source to $v$ is the same in both
+$\mathbb{D}$ and $\mathbb{D'}$ since Dijkstra's algorithm picks the path with the minimum weight
+            greedily.\newline
+            Then, the weight of the path from the source to $v$ in $\mathbb{D'}$ is the same as
+            the weight of the path from the source to $v$ in $\mathbb{D}$, which means either
+            there are two edges with equivalent weight or it's the same edge.\newline
+            However, since we assumed that $\mathbb{D'}$ has a different set of edges than
+            $\mathbb{D}$, then there must be an edge with a different weight.\newline
+            $\therefore$, $\mathbb{D'}$ has the same set of edges as $\mathbb{D}$.\newline
+            $\therefore$, $\mathbb{D'} = \mathbb{D}$
         \end{proof}
     \end{homeworkProblem}
 
