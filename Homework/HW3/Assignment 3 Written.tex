@@ -125,7 +125,8 @@
             True, you argue that the differences between the two algorithms are irrelevant to the
             quality of the solution.
             \item \maxpt{2}
-            True, since the shortest path is the path with the fewest edges.
+            True, since the shortest path is the path with the fewest edges if all weights are
+            equivalent. Dijkstra's algorithm is BFS with weights, so it will pick the same path.
             \item \maxpt{2}
             False, Counterexample:
             \begin{verbatim}
@@ -206,7 +207,9 @@ This yields (1 * 1) + (2 * 4) = 9
                 Divide both sides by $t(o_i) \cdot t(o_j)$ to get $\frac{p(o_j)}{t(o_j)}$ \textquestiondown\;$\frac{p(o_i)}{t(o_i)}$.\newline
                 Then, by definition of $\mathbb{G}$, $\frac{p(o_j)}{t(o_j)} \geq \frac{p(o_i)}{t(
                     o_i)}$ since $o_j$ was before $o_i$ in the greedy solution.\newline
-                $\therefore$, the optimal solution $\geq$ the greedy solution.\newline
+                Then, in the optimal solution, after swapping the tasks, the total value of the
+                tasks doesn't increase.\newline
+                $\therefore$, the optimal solution has total value $\geq$ the greedy solution.\newline
                 $\therefore$, the greedy solution is optimal.
             \end{proof}
         \end{enumerate}
