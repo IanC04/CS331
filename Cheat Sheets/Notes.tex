@@ -1,5 +1,5 @@
 %! Author = Ian
-%! Date = 10/10/2023
+%! Date = 2/9/2024
 
 % Preamble
 \documentclass{article}
@@ -10,6 +10,7 @@
 \usepackage[top=2cm, left=2cm, right=2cm, bottom=2cm]{geometry}
 \usepackage{multicol}
 \usepackage{amsfonts}
+\usepackage{amssymb}
 \setlength{\columnsep}{0.5cm}
 
 \author{Ian Chen}
@@ -24,12 +25,87 @@
 
 % Document
 \begin{document}
-    \subsubsection*{Big O Notation}
-    % TODO: Write Notes
-    \subsubsection*{Graphs}
-    % TODO: Write Notes
-    \subsubsection*{Greedy Algorithms}
-    % TODO: Write Notes
-    \subsubsection*{Minimum Spanning Trees}
-    % TODO: Write Notes
+    \begin{multicols*}{2}
+        \subsection*{Proof of Correctness}
+        Total Correctness: Termination and Partial Correctness\\
+        Partial Correctness: Loop invariants and induction\\
+        Loop Invariant: A property that holds before and after each iteration of a loop\\
+        Initialization: The loop invariant holds before the first iteration\\
+        Maintenance: If the loop invariant holds before an iteration, it holds after the iteration\\
+        Termination: When loop terminates, invariant gives useful property to show the algorithm is
+        correct
+        \subsection*{Stable Marriage}
+        Perfect Matching with Stability
+        \subsubsection*{Gale-Shapley Algorithm}
+        Men get the best women while women get the worst men\\
+        Greedy algorithm that picks the best available women for each man
+        \subsection*{Complexity}
+        Big Oh: $f(n)$ is $O(g(n))$ if $f(n) \leq cg(n)$ for $n \geq n_0 : c, n_0 > 0$\\
+        Big Omega: $f(n)$ is $\Omega(g(n))$ if $f(n) \geq cg(n)$ for $n \geq n_0 : c, n_0 > 0$\\
+        Big Theta: $f(n)$ is $\Theta(g(n))$ if $f(n)$ is $O(g(n))$ and $f(n)$ is $\Omega(g(n))$\\
+        Little Oh: Strict Big Oh\\
+        Little Omega: Strict Big Omega\\
+        $\lim_{n\to\infty}\frac{f(n)}{g(n)}$:\\
+        0 if $f(n)$ is $o(g(n))$, $\infty$ if $f(n)$ is $\omega(g(n))$\\
+        $< \infty$ if $f(n)$ is $O(g(n))$, $> 0$ if $f(n)$ is $\Omega(g(n))$\\
+        $0 < \infty$ if $f(n)$ is $\Theta(g(n))$\\
+        Growth Rates: $1 < \log(n) < \sqrt{n} < n < n\log(n) < n^2 < n^c < 2^n < c^n < n! < n^n$
+        \subsection*{Graphs}
+        n = $\rvert V \lvert$, m = $\rvert E \lvert$, e = $(u, v)$
+        \subsubsection*{Adjacency Matrix}
+        Space: $n^2$, Check if (u, v) is an edge: $\Theta(1)$, Check all edges: $\Theta(n^2)$
+        \subsubsection*{Adjacency List}
+        Space: $n + m$, Check if (u, v) is an edge: $O(\deg(u))$ (actually $O(1 + \deg(u))$), Check
+        all edges: $\Theta(n + m)$ (actually $\Theta(n + 2m)$)
+        \subsubsection*{Paths}
+        Sequence of vertices $v_1, v_2, \dots, v_k$ such that $(v_i, v_{i+1})$ is an edge\\
+        Simple Path: No repeated vertices\\
+        Connected: There is a path between every pair of vertices\\
+        Cycle: Simple path with $v_1 = v_k$ and $k > 2$\\
+        Tree: Connected graph with no cycles, $\lvert E \rvert = n - 1$
+        \subsubsection*{Breadth First Search}
+        $O(n + m)$ if adjacency list, $O(n^2)$ if adjacency matrix
+        \subsubsection*{Depth First Search}
+        % TODO
+        \subsubsection*{Directed Graphs}
+        Mutually Reachable: $u \to v$ and $v \to u$\\
+        Strongly Connected: Every node mutually Reachable\\
+        Directed Acyclic Graph: No directed cycles\\
+        Topological Ordering: Ordering of vertices $v_1, v_2, \ldots, v_n$ such that if $(v_i,
+        v_j)$ is an edge, $i < j$\\
+        DAG $\rightleftarrows$ Topological Ordering
+        \subsubsection*{Bipartite Graphs}
+        No odd cycles, can be colored with 2 colors
+        \subsubsection*{Connected Components}
+        % TODO
+        \subsection*{Greedy Algorithms}
+        Use local optimization to find a global solution.
+        \subsubsection*{Interval Scheduling}
+        Sort by finish time, take the first interval that doesn't overlap
+        with the previous interval\\
+        Time: $O(n\log(n))$
+        \subsubsection*{Interval Partitioning/Scheduling all Intervals}
+        Sort by start time, if interval overlaps with all preceding intervals, allocate new room\\
+        Time: $O(n\log(n))$
+        \subsubsection*{Scheduling to Minimize Lateness}
+        Sort by deadline, schedule in order of increasing deadline\\
+        Time: $O(n\log(n))$
+        \subsubsection*{Dijkstra}
+        Single-source shortest path\\
+        Assumes non-negative edge weights, non-deterministic(consistent) otherwise\\
+        Use Bellman-Ford if negative edge weights, which uses dynamic programming\\
+        Time: $O(nm)$ if naive, $O(m\log(n))$ if priority heap
+        \subsection*{Minimum Spanning Trees}
+        Assumes connected, undirected, distinct and non-negative edges\\
+        \subsubsection*{Kruskal}
+        Sort edges by weight, add edge if it doesn't form a cycle\\
+        Time: $O(m^2)$ if naive, $O(m\log(n))$ if union-find
+        \subsubsection*{Prim}
+        Start with any vertex, add the minimum weight edge that connects to the tree(one inside
+        tree and one outside)\\
+        Time: $O(n^2)$ if naive, $O(m\log(n))$ if priority heap
+        \subsection*{Reverse-Delete}
+        Sort edges in decreasing order, remove edge if it doesn't disconnect the graph\\
+        Time: $O(e\log(e))$ in PPT, $O(E\log(V)(\log\log V)^3)$ online
+    \end{multicols*}
 \end{document}
