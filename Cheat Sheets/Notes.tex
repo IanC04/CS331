@@ -40,6 +40,8 @@
         Men get the best women while women get the worst men\\
         Greedy algorithm that picks the best available women for each man
         \subsection*{Complexity}
+        $b^{\log_b x} = x$\\
+        $\log_b x = \frac{\log_c x}{\log_c b}$\\
         Big Oh: $f(n)$ is $O(g(n))$ if $f(n) \leq cg(n)$ for $n \geq n_0 : c, n_0 > 0$\\
         Big Omega: $f(n)$ is $\Omega(g(n))$ if $f(n) \geq cg(n)$ for $n \geq n_0 : c, n_0 > 0$\\
         Big Theta: $f(n)$ is $\Theta(g(n))$ if $f(n)$ is $O(g(n))$ and $f(n)$ is $\Omega(g(n))$\\
@@ -49,7 +51,15 @@
         0 if $f(n)$ is $o(g(n))$, $\infty$ if $f(n)$ is $\omega(g(n))$\\
         $< \infty$ if $f(n)$ is $O(g(n))$, $> 0$ if $f(n)$ is $\Omega(g(n))$\\
         $0 < \infty$ if $f(n)$ is $\Theta(g(n))$\\
-        Growth Rates: $1 < \log(n) < \sqrt{n} < n < n\log(n) < n^2 < n^c < 2^n < c^n < n! < n^n$
+        Growth Rates: $1 < \log(n) < \sqrt{n} < n < n\log(n) < n^2 < n^c < 2^n < c^n < n! < n^n$\\
+        Harmonic: $\sum_{k=1}^{n} \frac{1}{k} \sim \ln n$\\
+        Triangular: $\sum_{k=1}^{n} k = \frac{n(n + 1)}{2} \sim \frac{n^2}{2}$\\
+        Squares: $\sum_{k=1}^{n} k^2 \sim \frac{n^3}{3}$\\
+        Stirling's Approximation: $\log_2(n!) \sim n\log_2 n$\\
+        Master Theorem: $T(n) = aT(\frac{n}{b}) + \Theta(n^c)$\\
+        If $c < log_b a$, $T(n) = \Theta(n^{\log_b a})$\\
+        If $c = log_b a$, $T(n) = \Theta(n^c\log n)$\\
+        If $c > log_b a$, $T(n) = \Theta(n^c)$
         \subsection*{Graphs}
         n = $\rvert V \lvert$, m = $\rvert E \lvert$, e = $(u, v)$
         \subsubsection*{Adjacency Matrix}
@@ -66,10 +76,10 @@
         \subsubsection*{Breadth First Search}
         $O(n + m)$ if adjacency list, $O(n^2)$ if adjacency matrix
         \subsubsection*{Depth First Search}
-        % TODO
+        $O(n + m)$ if adjacency list, $O(n^2)$ if adjacency matrix
         \subsubsection*{Directed Graphs}
         Mutually Reachable: $u \to v$ and $v \to u$\\
-        Strongly Connected: Every node mutually Reachable\\
+        Strongly Connected: Every node mutually reachable\\
         Directed Acyclic Graph: No directed cycles\\
         Topological Ordering: Ordering of vertices $v_1, v_2, \ldots, v_n$ such that if $(v_i,
         v_j)$ is an edge, $i < j$\\
@@ -77,7 +87,7 @@
         \subsubsection*{Bipartite Graphs}
         No odd cycles, can be colored with 2 colors
         \subsubsection*{Connected Components}
-        % TODO
+        Strongly Connected Components (Di-graph only)
         \subsection*{Greedy Algorithms}
         Use local optimization to find a global solution.
         \subsubsection*{Interval Scheduling}
@@ -107,5 +117,18 @@
         \subsection*{Reverse-Delete}
         Sort edges in decreasing order, remove edge if it doesn't disconnect the graph\\
         Time: $O(e\log(e))$ in PPT, $O(E\log(V)(\log\log V)^3)$ online
+        \subsection*{Greedy Stays Ahead}
+        Define: Optimal- $\mathbb{O}$ and Greedy- $\mathbb{G}$\\
+        Measurement: Define criteria to compare each element of $\mathbb{O}$ and $\mathbb{G}$\\
+        Stays Ahead: Show $\mathbb{G}_i$ is better than $\mathbb{O}_i$ $(\forall i)$, usually
+        through induction\\
+        Optimality: Show that $\mathbb{G}$ is optimal since it is always better than $\mathbb{O}$,
+        usually through contradiction by assuming greedy isn't optimal but it stays ahead of optimal
+        \subsection*{Exchange Argument}
+        Define: Optimal- $\mathbb{O}$ and Greedy- $\mathbb{G}$\\
+        Compare Solutions: Show differences in order or existence\\
+        Exchange Pieces: Show that transforming $\mathbb{O}$ to $\mathbb{G}$ doesn't reduce
+        optimality\\
+        Iterate: Repeat until $\mathbb{O}$ is $\mathbb{G}$
     \end{multicols*}
 \end{document}
