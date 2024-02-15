@@ -33,12 +33,16 @@
         Initialization: The loop invariant holds before the first iteration\\
         Maintenance: If the loop invariant holds before an iteration, it holds after the iteration\\
         Termination: When loop terminates, invariant gives useful property to show the algorithm is
-        correct
+        correct\\
+        Iterative: Usually loop invariants\\
+        Recursive: Usually induction
         \subsection*{Stable Marriage}
-        Perfect Matching with Stability
+        Perfect Matching with Stability\\
+        Self-enforcing: Self-interest itself prevents offers from being retracted and redirected
         \subsubsection*{Gale-Shapley Algorithm}
         Men get the best women while women get the worst men\\
-        Greedy algorithm that picks the best available women for each man
+        Greedy algorithm that picks the best available women for each man\\
+        Time: $O(n^2)$
         \subsection*{Complexity}
         $b^{\log_b x} = x$\\
         $\log_b x = \frac{\log_c x}{\log_c b}$\\
@@ -61,7 +65,8 @@
         If $c = log_b a$, $T(n) = \Theta(n^c\log n)$\\
         If $c > log_b a$, $T(n) = \Theta(n^c)$
         \subsection*{Graphs}
-        n = $\rvert V \lvert$, m = $\rvert E \lvert$, e = $(u, v)$
+        n = $\rvert V \lvert$, m = $\rvert E \lvert$, e = $(u, v)$\\
+        Complete: $\lvert E \rvert = \frac{n(n - 1)}{2}$
         \subsubsection*{Adjacency Matrix}
         Space: $n^2$, Check if (u, v) is an edge: $\Theta(1)$, Check all edges: $\Theta(n^2)$
         \subsubsection*{Adjacency List}
@@ -91,32 +96,35 @@
         \subsection*{Greedy Algorithms}
         Use local optimization to find a global solution.
         \subsubsection*{Interval Scheduling}
+        Maximum number of non-overlapping intervals\\
         Sort by finish time, take the first interval that doesn't overlap
         with the previous interval\\
-        Time: $O(n\log(n))$
+        Time: $O(n\log n)$
         \subsubsection*{Interval Partitioning/Scheduling all Intervals}
+        Minimum number of rooms to schedule all intervals\\
         Sort by start time, if interval overlaps with all preceding intervals, allocate new room\\
-        Time: $O(n\log(n))$
+        Time: $O(n\log n)$
         \subsubsection*{Scheduling to Minimize Lateness}
+        Minimizes the maximum lateness\\
         Sort by deadline, schedule in order of increasing deadline\\
-        Time: $O(n\log(n))$
+        Time: $O(n\log n)$
         \subsubsection*{Dijkstra}
-        Single-source shortest path\\
+        Single-source shortest path; weighted BFS\\
         Assumes non-negative edge weights, non-deterministic(consistent) otherwise\\
         Use Bellman-Ford if negative edge weights, which uses dynamic programming\\
-        Time: $O(nm)$ if naive, $O(m\log(n))$ if priority heap
+        Time: $O(nm)$ if naive, $O(m\log n)$ if priority heap
         \subsection*{Minimum Spanning Trees}
-        Assumes connected, undirected, distinct and non-negative edges\\
+        Assumes connected, undirected, distinct and non-negative edges
         \subsubsection*{Kruskal}
         Sort edges by weight, add edge if it doesn't form a cycle\\
-        Time: $O(m^2)$ if naive, $O(m\log(n))$ if union-find
+        Time: $O(m^2)$ if naive, $O(m\log n)$ if union-find
         \subsubsection*{Prim}
         Start with any vertex, add the minimum weight edge that connects to the tree(one inside
         tree and one outside)\\
-        Time: $O(n^2)$ if naive, $O(m\log(n))$ if priority heap
+        Time: $O(n^2)$ if naive, $O(m\log n)$ if priority heap
         \subsection*{Reverse-Delete}
         Sort edges in decreasing order, remove edge if it doesn't disconnect the graph\\
-        Time: $O(e\log(e))$ in PPT, $O(E\log(V)(\log\log V)^3)$ online
+        Time: $O(e\log e)$ in PPT, $O(E\log(V)(\log\log V)^3)$ online
         \subsection*{Greedy Stays Ahead}
         Define: Optimal- $\mathbb{O}$ and Greedy- $\mathbb{G}$\\
         Measurement: Define criteria to compare each element of $\mathbb{O}$ and $\mathbb{G}$\\
@@ -130,5 +138,28 @@
         Exchange Pieces: Show that transforming $\mathbb{O}$ to $\mathbb{G}$ doesn't reduce
         optimality\\
         Iterate: Repeat until $\mathbb{O}$ is $\mathbb{G}$
+        \subsection*{Divide and Conquer/Combine}
+        Divide: Break problem into smaller subproblems\\
+        Conquer/Combine: Solve subproblems recursively and combine
+        \subsubsection*{Recurrence Relation}
+        A function defined in terms of itself\\
+        Mirrors the recursive algorithm it represents\\
+        Analysis of the running time of a divide and conquer algorithm generally involves
+        solving a recurrence relation\\
+        1,2,3 Method Example: (Merge Sort)\\
+        \begin{tabular}{c|c|c}
+            Level & Problem Size & Total Time \\
+            \hline
+            0 & $n$ & $n$ \\
+            1 & $\frac{n}{2}$ & $2\frac{n}{2}$ \\
+            2 & $\frac{n}{4}$ & $4\frac{n}{4}$ \\
+            \ldots & \ldots & \ldots \\
+            $k$ & $\frac{n}{2^k} = 1$ & $2^{k}\frac{n}{2^k}$ \\
+        \end{tabular}
+        \subsubsection*{Merge Sort}
+        Divide: Split array into two halves\\
+        Conquer: Recursively sort the two halves\\
+        $T(n) = 2T(\frac{n}{2}) + n - 1$, $T(1) = 0$\\
+        Time: $O(n\log n)$
     \end{multicols*}
 \end{document}
