@@ -60,10 +60,10 @@
         Triangular: $\sum_{k=1}^{n} k = \frac{n(n + 1)}{2} \sim \frac{n^2}{2}$\\
         Squares: $\sum_{k=1}^{n} k^2 \sim \frac{n^3}{3}$\\
         Stirling's Approximation: $\log_2(n!) \sim n\log_2 n$\\
-        Master Theorem: $T(n) = aT(\frac{n}{b}) + \Theta(n^c)$\\
-        If $c < log_b a$, $T(n) = \Theta(n^{\log_b a})$\\
-        If $c = log_b a$, $T(n) = \Theta(n^c\log n)$\\
-        If $c > log_b a$, $T(n) = \Theta(n^c)$
+        Master Theorem: $T(n) = aT(\frac{n}{b}) + f(n)$, $\epsilon > 0$\\
+        If $f(n) = O(n^{\log_b (a) - \epsilon})$, $T(n) = \Theta(n^{\log_b a})$\\
+        If $f(n) = \Theta(n^{\log_b a})$, $T(n) = \Theta(n^{\log_b a}\log n)$\\
+        If $f(n) = \Omega(n^{log_b (a) + \epsilon})$, $T(n) = \Theta(f(n))$
         \subsection*{Graphs}
         n = $\rvert V \lvert$, m = $\rvert E \lvert$, e = $(u, v)$\\
         Complete: $\lvert E \rvert = \frac{n(n - 1)}{2}$
