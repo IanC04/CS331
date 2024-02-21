@@ -1,0 +1,161 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{ listings}
+\usepackage{booktabs}
+\usepackage[shortlabels]{enumitem}
+\usepackage{array}% http://ctan.org/pkg/array
+\newcolumntype{M}{>{\centering\arraybackslash}m{\dimexpr.25\linewidth-2\tabcolsep}}
+\newcommand{\Class}{ \normalsize CS 331: Algorithms and Complexity (Fall 2023)\\
+\small    Unique Number: 52765, 52770
+}
+
+
+%\newcommand{\ClassInstructor}{Fares}
+% Homework Specific Information. Change it to your own
+\newcommand{\Title}{Assignment 4 - Solution}
+\newcommand{\DueDate}{Tuesday, 27 February, by 11.59pm}
+
+\newcommand{\StudentName}{}
+\newcommand{\StudentClass}{}
+\newcommand{\StudentNumber}{}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\StudentName}                                                 %
+\chead{\Title}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page
+\ldots}\nobreak%
+\nobreak\extramarks{#1}{}\nobreak}%
+
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+{\stepcounter{homeworkProblemCounter}%
+\renewcommand{\homeworkProblemName}{#1}%
+\section*{\homeworkProblemName}%
+\enterProblemHeader{\homeworkProblemName}}%
+{\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+{% We put this space here to make sure we're not connected to the above.
+
+    \renewcommand{\homeworkSectionName}{#1}%
+    \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+    \addtolength{\homeworkSectionLabelLength}{0.25in}%
+    \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+    \subsection*{\homeworkSectionName}%
+    \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+    {\enterProblemHeader{\homeworkProblemName}%
+
+    % We put the blank space above in order to make sure this margin
+    % change doesn't happen too soon.
+    \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\Answer}{\ \\\textbf{Answer:} }
+\newcommand{\Acknowledgement}[1]{\ \\{\bf Acknowledgement:} #1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\textmd{\bf \Class\\ \Title}\\\vspace{0.1in}\small{Due\ on\ \DueDate}}
+\date{}
+\author{\textbf{\StudentName}\ \ \StudentClass\ \ \StudentNumber}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlist[enumerate,1]{label=\bfseries(\alph*)}
+\newcommand{\maxpt}[1]{\ifthenelse{\equal{#1}{1}}{\textbf{(#1 pt)}}{\textbf{(#1 pts)}}}
+
+\begin{document}
+    \maketitle \thispagestyle{empty}
+
+    %\begin{figure}[h]
+    %	\centering
+    %	\includegraphics[width=0.75\textwidth]{../HonorCode}
+    %\end{figure}
+    %		\newpage
+
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Begin edit from here
+    \begin{homeworkProblem}
+        \textbf{(10 points)}
+        \begin{enumerate}
+            \item \textbf{(1pt each)}\\
+            $T_2(n)$ has $\frac{4}{3}$ inside the recurrence, while results in subsequent calls
+            growing the value of n.\\
+            $T_3(n)$ has $- 5n^3$ as the cost, which results in negative time complexity.
+            \item \textbf{(2pt each)}\\
+            \begin{itemize}
+                \item $T_1(n) = 2T_1(\frac{n}{4}) + n^2$, $T_1(1) = 1$\\
+                Using Master's Theorem % TODO
+            \end{itemize}
+            \item \maxpt{2}
+            % TODO
+        \end{enumerate}
+    \end{homeworkProblem}
+
+    \newpage
+
+    \begin{homeworkProblem}
+        \textbf{(10 points)}
+        \begin{enumerate}
+            \item (4 points)
+            % TODO
+            \item (2 points)
+            % TODO
+            \item (2 points)
+            % TODO
+            \item (2 points)
+            % TODO
+        \end{enumerate}
+    \end{homeworkProblem}
+
+    \newpage
+
+    \begin{homeworkProblem}
+        \maxpt{10}
+
+        \begin{enumerate}
+            \item
+            % TODO
+            \item
+            % TODO
+            \item
+            % TODO
+        \end{enumerate}
+    \end{homeworkProblem}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
