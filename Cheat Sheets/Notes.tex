@@ -46,6 +46,9 @@
         \subsection*{Complexity}
         $a^{\log_b x} = x^{\log_b a}$\\
         $\log_b x = \frac{\log_c x}{\log_c b}$\\
+        $\log_b M \cdot N = \log_b M - \log_b N$\\
+        $\log_b \frac{M}{N} = \log_b M - \log_b N$\\
+        $\log_b M^k = k\log_b M$\\
         Big Oh: $f(n)$ is $O(g(n))$ if $f(n) \leq cg(n)$ for $n \geq n_0 : c, n_0 > 0$\\
         Big Omega: $f(n)$ is $\Omega(g(n))$ if $f(n) \geq cg(n)$ for $n \geq n_0 : c, n_0 > 0$\\
         Big Theta: $f(n)$ is $\Theta(g(n))$ if $f(n)$ is $O(g(n))$ and $f(n)$ is $\Omega(g(n))$\\
@@ -149,18 +152,16 @@
         1,2,3 Method Example: (Merge Sort)\\
         $T(n) = 2T(\frac{n}{2}) + n-1$, $T(1) = 0$\\
         \begin{tabular}{c|c|c}
-            Level & Problem Size & Total Time \\
+            Level  & Problem Size        & Total Time               \\
             \hline
-            0 & $n$ & $n$ \\
-            1 & $\frac{n}{2}$ & $2\frac{n}{2}$ \\
-            2 & $\frac{n}{4}$ & $4\frac{n}{4}$ \\
-            \ldots & \ldots & \ldots \\
-            $k$ & $\frac{n}{2^k} = 1$ & $2^{k}\frac{n}{2^k}$ \\
-        \end{tabular}
-        \subsubsection*{Merge Sort}
-        Divide: Split array into two halves\\
-        Conquer: Recursively sort the two halves\\
-        $T(n) = 2T(\frac{n}{2}) + n - 1$, $T(1) = 0$\\
-        Time: $O(n\log n)$
+            0      & $n$                 & $n$                      \\
+            1      & $\frac{n}{2}$       & $2\frac{n}{2} = n$       \\
+            2      & $\frac{n}{4}$       & $4\frac{n}{4} = n$       \\
+            \vdots & \vdots              & \vdots                   \\
+            $k$    & $\frac{n}{2^k} = 1$ & $2^{k}\frac{n}{2^k} = n$ \\
+        \end{tabular}\\
+        $\to (\sum\limits_{i=0}^{k-1} n) + 0 \cdot 2^{log_{2} n} \to \sum\limits_{i=0}^{log_{2}n -
+        1} n \to n\log n$
+        \subsection*{Dynamic Programming}
     \end{multicols*}
 \end{document}
