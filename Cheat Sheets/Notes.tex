@@ -149,14 +149,16 @@
         1,2,3 Method Example: (Merge Sort)\\
         $T(n) = 2T(\frac{n}{2}) + n-1$, $T(1) = 0$\\
         \begin{tabular}{c|c|c}
-            Level & Problem Size & Total Time \\
+            Level  & Problem Size        & Total Time               \\
             \hline
-            0 & $n$ & $n$ \\
-            1 & $\frac{n}{2}$ & $2\frac{n}{2}$ \\
-            2 & $\frac{n}{4}$ & $4\frac{n}{4}$ \\
-            \ldots & \ldots & \ldots \\
-            $k$ & $\frac{n}{2^k} = 1$ & $2^{k}\frac{n}{2^k}$ \\
-        \end{tabular}
+            0      & $n$                 & $n$                      \\
+            1      & $\frac{n}{2}$       & $2\frac{n}{2} = n$       \\
+            2      & $\frac{n}{4}$       & $4\frac{n}{4} = n$       \\
+            \vdots & \vdots              & \vdots                   \\
+            $k$    & $\frac{n}{2^k} = 1$ & $2^{k}\frac{n}{2^k} = n$ \\
+        \end{tabular}\\
+        $\to (\sum\limits_{i=0}^{k-1} n) + 0 \cdot 2^{log_{2} n} \to \sum\limits_{i=0}^{log_{2}n -
+        1} n \to n\log n$
         \subsubsection*{Merge Sort}
         Divide: Split array into two halves\\
         Conquer: Recursively sort the two halves\\
