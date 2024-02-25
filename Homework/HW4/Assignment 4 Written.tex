@@ -8,7 +8,11 @@
 \usepackage{chngpage}
 \usepackage{soul,color}
 \usepackage{graphicx,float,wrapfig}
-\usepackage{ listings}
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily,
+    mathescape
+}
 \usepackage{booktabs}
 \usepackage[shortlabels]{enumitem}
 \usepackage{array}% http://ctan.org/pkg/array
@@ -128,23 +132,34 @@
                 Master's Theorem.\\
                 I will use the recurrence relation\\
                 \begin{tabular}{c|c|c}
-                    Level & Problem size & Total time\\
+                    Level  & Problem size        & Total time                                  \\
                     \hline
-                    0 & n & $n\log n$\\
-                    1 & $\frac{n}{2}$ & $2 \cdot \frac{n}{2}\log \frac{n}{2}$\\
-                    2     & $\frac{n}{4}$ & $2^2 \cdot \frac{n}{2^2}\log \frac{n}{2^2}$ \\
-                    \vdots & \vdots & \vdots\\
-                    k & $\frac{n}{2^k} = 1$ & $2^k \cdot \frac{n}{2^k}\log \frac{n}{2^k}$\\
+                    0      & n                   & $n\log n$                                   \\
+                    1      & $\frac{n}{2}$       & $2 \cdot \frac{n}{2}\log \frac{n}{2}$       \\
+                    2      & $\frac{n}{4}$       & $2^2 \cdot \frac{n}{2^2}\log \frac{n}{2^2}$ \\
+                    \vdots & \vdots              & \vdots                                      \\
+                    k      & $\frac{n}{2^k} = 1$ & $2^k \cdot \frac{n}{2^k}\log \frac{n}{2^k}$ \\
                 \end{tabular}\\
                 $\to (\sum\limits_{i=0}^{k-1} 2^i \cdot \frac{n}{2^i}\log \frac{n}{2^i}) + 1 \cdot
-                2^k \to (\sum\limits_{i=0}^{k-1} n\log \frac{n}{2^i}) + 2^k
-                \to (\sum\limits_{i=0}^{log_2(n)-1} n\log \frac{n}{2^i}) + 2^{log_2{n}}
-                \to (\sum\limits_{i=0}^{log_2(n)-1} n\log n - n\log 2^i) + n
-                \to n(\sum\limits_{i=0}^{log_2(n)-1} \log n - i) + n$\\
+                2^k\\
+                \to (\sum\limits_{i=0}^{k-1} n\log \frac{n}{2^i}) + 2^k\\
+                \to (\sum\limits_{i=0}^{log_2(n)-1} n\log \frac{n}{2^i}) + 2^{log_2{n}}\\
+                \to (\sum\limits_{i=0}^{log_2(n)-1} n\log n - n\log 2^i) + n\\
+                \to n + \sum\limits_{i=0}^{log_2(n)-1} n\log n - \sum\limits_{i=0}^{log_2(n)-1} i\\
+                \to n + n\log_2 n\log_2 n - \frac{log_2(n)(log_2(n)-1)}{2}$\\
                 % TODO
                 \item $T_5(n) = \sqrt{n}T_5(\sqrt{n}) + n$, $n \geq 2$\\
                 We cannot use Master's Theorem here, as the form of the recurrence is not in the
                 form of $T(n) = aT(\frac{n}{b}) + f(n)$.\\
+                \begin{tabular}{c|c|c}
+                    Level  & Problem size    & Total time           \\
+                    \hline
+                    0      & n               & n                    \\
+                    1      & $n^{1/2}$       & $n^{1/2}n^{1/2}$     \\
+                    2      & $n^{1/2^2}$     & $n^{1/2^2}n^{1/2^2}$ \\
+                    \vdots & \vdots          & \vdots               \\
+                    k      & $n^{1/2^k} = 2$ & $n^{1/2^k}n^{1/2^k}$ \\
+                \end{tabular}\\
                 % TODO
             \end{itemize}
             \item \maxpt{2}
@@ -158,12 +173,28 @@
         \textbf{(10 points)}
         \begin{enumerate}
             \item (4 points)
+            Split the array into 5 equal parts, until the size of the array is 1.
+            Then, merge the arrays back together.\\
+            To merge the arrays, we will use 5 pointers to each of the 5 arrays, let them be
+            size n/5.
+            We then compare each of them to find the smallest element.
+            Then, we will add the smallest element to the new array of size n, repeat until all
+            pointers are at the end of the array.\\
+            This yields a new sorted array of size n.\\
             % TODO
             \item (2 points)
+            Let each array be size n/5.
+            We assume each of the arrays are sorted.\\
+            Each iteration has at most 4 comparisons, so the total number of comparisons is at
+            most 4n.\\
             % TODO
             \item (2 points)
+            T(n) = 5T(n/5) + O(n) with T(1) = 1\\
             % TODO
             \item (2 points)
+            Using Master's theorem, a = 5, b = 5, f(n) = n\\
+            $n^{log_5 5} = n$.\\
+            $n^{log_b a} = f(n)$, so the recurrence is $\Theta(n\log n)$.\\
             % TODO
         \end{enumerate}
     \end{homeworkProblem}
@@ -174,11 +205,28 @@
         \maxpt{10}
 
         \begin{enumerate}
-            \item
-            % TODO
-            \item
-            % TODO
-            \item
+            \item Recursive Solution with Memoization
+            \begin{lstlisting}
+getMaxRecur(i):
+    if i > n:
+        return 0
+    if memo[i] != -1:
+        return memo[i]
+    MAX = max($p_i$ + getMaxRecur(i + $c_i$), getMaxRecur(i + 1))
+    memo[i] = MAX
+    return MAX
+            \end{lstlisting}
+            \item Iterative Solution
+            \begin{lstlisting}
+getMaxTabular():
+    memo[n] = 0
+    for i in range(n, 0):
+        memo[i] = max($p_i$, memo[i + $c_i$])
+    return memo[1]
+            \end{lstlisting}
+            \item Proof of Correctness\\
+            Since the iterative solution iterates through the array computing each element once,
+            it's $O(n)$.\\
             % TODO
         \end{enumerate}
     \end{homeworkProblem}
