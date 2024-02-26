@@ -5,4 +5,4 @@ Algorithms and Complexity
 My solutions to the homework problems and handouts
 
 ### Notes
-- [Exam Cheat Sheet](out/CS311 Notes.pdf)
+- [Exam Cheat Sheet](<out/CS311 Notes.pdf>)
