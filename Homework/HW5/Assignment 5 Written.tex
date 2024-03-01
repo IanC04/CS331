@@ -159,11 +159,33 @@
     \begin{homeworkProblem}[Problem 1]
         \maxpt{8}
         \begin{enumerate}
-            \item \maxpt{6}
+            \item \maxpt{6}\\
+            % OPT(i, j) = min($\alpha_{x_i y_i} + OPT(i - 1, j - 1)$, $\delta + OPT(i - 1, j)$,
+            % $\delta + OPT(i, j - 1)$)\\
+            A naive solution would be to split into 3 cases, one for each of the 3 possible
+            operations\\
+            (1) Adding a gap to the first string\\
+            (2) Adding a gap to the second string\\
+            (3) Including characters in both strings\\
+            This yields a time complexity of $O(3^{m + n})$\\
+            Example: (IAN, CHEN)\\
             % TODO
             \item \maxpt{2}
             \begin{itemize}
                 \item [1.]
+                \begin{tabular}{|c|c|c|c|c|}
+                    \hline
+                    \_ & A & L & G & O \\
+                    \hline
+                    T & 1 & 2 & 3 & 4 \\
+                    \hline
+                    E & 2 & 2 & 3 & 4 \\
+                    \hline
+                    S & 3 & 3 & 3 & 4 \\
+                    \hline
+                    T & 4 & 4 & 4 & 4 \\
+                    \hline
+                \end{tabular}
                 % TODO
                 \item [2.]
                 % TODO
@@ -175,6 +197,28 @@
         \maxpt{12}
         \begin{enumerate}
             \item
+            \textit{Ideas:}\\
+            Either the new character added is a new substring or it can be added to the previous
+            palindrome and keep it a palindrome or a character two substrings behind to create a
+            larger palindrome.\\
+            Recursion: OPT(i) = min(OPT(i - 1) + 1, )\\
+            \begin{tabular}{|c|c|c|c|c|c|c|}
+                \hline
+                \_ & C & O & F & F & E & E\\
+                \hline
+                E & 1 & 2 & 3 & 4 & 5 & 6\\
+                \hline
+                E & 2 & 3 & 4 & 5 & 6 & 7\\
+                \hline
+                F & 2 & 3 & 4 & 3 & 4 & 5\\
+                \hline
+                F & 3 & 4 & 5 & 4 & 3 & 4\\
+                \hline
+                O & 4 & 3 & 4 & 5 & 4 & 5\\
+                \hline
+                C & 5 & 4 & 5 & 6 & 5 & 6\\
+                \hline
+            \end{tabular}
             % TODO
             \item
             % TODO
