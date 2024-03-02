@@ -8,7 +8,11 @@
 \usepackage{chngpage}
 \usepackage{soul,color}
 \usepackage{graphicx,float,wrapfig}
-\usepackage{ listings}
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily,
+    mathescape
+}
 \usepackage{hyperref}
 
 \RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
@@ -160,15 +164,18 @@
         \maxpt{8}
         \begin{enumerate}
             \item \maxpt{6}\\
-            % OPT(i, j) = min($\alpha_{x_i y_i} + OPT(i - 1, j - 1)$, $\delta + OPT(i - 1, j)$,
-            % $\delta + OPT(i, j - 1)$)\\
             A naive solution would be to split into 3 cases, one for each of the 3 possible
             operations\\
             (1) Adding a gap to the first string\\
             (2) Adding a gap to the second string\\
             (3) Including characters in both strings\\
+            OPT(i, j) = min($\alpha_{x_i y_i} + OPT(i - 1, j - 1)$, $\delta + OPT(i - 1, j)$,
+            $\delta + OPT(i, j - 1)$)\\
             This yields a time complexity of $O(3^{m + n})$\\
-            Example: (IAN, CHEN)\\
+            Example: (CH, EN)\\
+            First layer: (C, E), (C, \_), (\_, E)\\
+            Second layer: (CH, EN), (CH, E\_), (C\_, EN), (CH, EN), (CH, \_\_), (C\_, \_E),
+            (\_C, EN), (\_C, E\_), (\_\_, EN)\\
             % TODO
             \item \maxpt{2}
             \begin{itemize}
@@ -177,17 +184,21 @@
                     \hline
                     \_ & A & L & G & O \\
                     \hline
-                    T & 1 & 2 & 3 & 4 \\
+                    T  & 1 & 2 & 3 & 4 \\
                     \hline
-                    E & 2 & 2 & 3 & 4 \\
+                    E  & 2 & 2 & 3 & 4 \\
                     \hline
-                    S & 3 & 3 & 3 & 4 \\
+                    S  & 3 & 3 & 3 & 4 \\
                     \hline
-                    T & 4 & 4 & 4 & 4 \\
+                    T  & 4 & 4 & 4 & 4 \\
                     \hline
-                \end{tabular}
+                \end{tabular}\\
+                $Alignment_1$: ALGO\\
+                $Alignment_2$: TEST\\
                 % TODO
                 \item [2.]
+                The cost is the value in the bottom right corner, 4\\
+                Cost is 4 since there are 4 sets of characters that are different
                 % TODO
             \end{itemize}
         \end{enumerate}
@@ -197,28 +208,56 @@
         \maxpt{12}
         \begin{enumerate}
             \item
-            \textit{Ideas:}\\
-            Either the new character added is a new substring or it can be added to the previous
-            palindrome and keep it a palindrome or a character two substrings behind to create a
-            larger palindrome.\\
-            Recursion: OPT(i) = min(OPT(i - 1) + 1, )\\
+            Indices (i, j) store the minimum number of cuts needed to make the substring from i
+            to j a set of palindromes.\\
+            \begin{lstlisting}
+def min_palindrome(s):
+    sections = [$\infty$] * len(s)
+    for j in [1, len(s)]:
+        min_sections = j
+        for i in [1, j]:
+            if isPali(i, j):
+                min_sections = min(min_sections, sections[i - 1] + 1)
+        sections[j] = min_sections
+            \end{lstlisting}
+            I'll test by running it on the string \textquoteleft coffee\textquoteright\\
+            Each iteration runs with a fixed endpoint j and a increasing start point i.\\
+            First iteration: ($1\to 1$, 1)
             \begin{tabular}{|c|c|c|c|c|c|c|}
                 \hline
-                \_ & C & O & F & F & E & E\\
+                $1$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ \\
                 \hline
-                E & 1 & 2 & 3 & 4 & 5 & 6\\
+            \end{tabular}\\
+            Second iteration: ($1\to 2$, 2)
+            \begin{tabular}{|c|c|c|c|c|c|c|}
                 \hline
-                E & 2 & 3 & 4 & 5 & 6 & 7\\
+                $1$ & $2$ & $\infty$ & $\infty$ & $\infty$ & $\infty$ \\
                 \hline
-                F & 2 & 3 & 4 & 3 & 4 & 5\\
+            \end{tabular}\\
+            Third iteration: ($1\to 3$, 3)
+            \begin{tabular}{|c|c|c|c|c|c|c|}
                 \hline
-                F & 3 & 4 & 5 & 4 & 3 & 4\\
+                $1$ & $2$ & $3$ & $\infty$ & $\infty$ & $\infty$ \\
                 \hline
-                O & 4 & 3 & 4 & 5 & 4 & 5\\
+            \end{tabular}\\
+            Fourth iteration: ($1\to 4$, 4)
+            \begin{tabular}{|c|c|c|c|c|c|c|}
                 \hline
-                C & 5 & 4 & 5 & 6 & 5 & 6\\
+                $1$ & $2$ & $3$ & $3$ & $\infty$ & $\infty$ \\
                 \hline
-            \end{tabular}
+            \end{tabular}\\
+            Fifth iteration: ($1\to 5$, 5)
+            \begin{tabular}{|c|c|c|c|c|c|c|}
+                \hline
+                $1$ & $2$ & $3$ & $3$ & $4$ & $\infty$ \\
+                \hline
+            \end{tabular}\\
+            Sixth iteration: ($1\to 6$, 6)
+            \begin{tabular}{|c|c|c|c|c|c|c|}
+                \hline
+                $1$ & $2$ & $3$ & $3$ & $4$ & $4$ \\
+                \hline
+            \end{tabular}\\
             % TODO
             \item
             % TODO
@@ -229,8 +268,32 @@
         \maxpt{10}
         \begin{enumerate}
             \item
+            Since we can't include the direct children of a manager, then we need to include
+            subtrees 3 layers deep.\\
+            This isn't greedy since local best choices don't always lead to the global best
+            choice.\\
             % TODO
             \item
+            I used memoization to store the maximum enjoyment for each person.\\
+            \begin{lstlisting}
+Map(person, enjoyment) = {}
+def max_enjoyment(person):
+    if person is None:
+        return 0
+    if person in Map:
+        return Map(person)
+    ce = 0
+    for child in person.children:
+        ce += max_enjoyment(child)
+
+    gce = 0
+    for child in person.children:
+        for grandchild in child.children:
+            gce += max_enjoyment(grandchild)
+    Map(tree, max(ce, gce + person.enjoyment))
+    return max(ce, gce + person.enjoyment)
+            \end{lstlisting}
+            Time complexity is $O(n)$\\
             % TODO
         \end{enumerate}
     \end{homeworkProblem}
