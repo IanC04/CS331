@@ -160,16 +160,103 @@
             \item \maxpt{6}\\
             A naive solution would be to split into 3 cases, one for each of the 3 possible
             operations\\
-            (1) Adding a gap to the first string\\
-            (2) Adding a gap to the second string\\
-            (3) Including characters in both strings\\
+            (1) Including characters in both strings(Until no more characters in one of the
+            strings)\\
+            (2) Include character of first string and add gap to second string(Until no more
+            characters in first string)\\
+            (3) Include character of second string and add gap to first string(Until no more
+            characters in second string)\\
             OPT(i, j) = min($\alpha_{x_i y_i} + OPT(i - 1, j - 1)$, $\delta + OPT(i - 1, j)$,
             $\delta + OPT(i, j - 1)$)\\
             This yields a time complexity of $O(3^{m + n})$\\
-            Example: (CH, EN)\\
-            First layer: (C, E), (C, \_), (\_, E)\\
-            Second layer: (CH, EN), (CH, E\_), (C\_, EN), (CH, EN), (CH, \_\_), (C\_, \_E),
-            (\_C, EN), (\_C, E\_), (\_\_, EN)\\
+            Example: String$_1$: CH, String$_2$: EN\\
+            We have 3 possibilities for our first layer, (C, E), (C, \_), (\_, E)\\
+            \begin{tikzpicture}
+            [
+                level 1/.style={sibling distance=60mm},
+                level 2/.style={sibling distance=35mm},
+                level 3/.style={sibling distance=30mm},
+                level 4/.style={sibling distance=30mm}
+            ]
+                \node{(C, E)}
+                child {
+                    node {(CH, EN)}}
+                child {
+                    node {(CH, E\_)}
+                    child {node {(CH\_, E\_N)}}
+                }
+                child {
+                    node {(C\_, EN)}
+                    child {node {(C\_H, EN\_)}}
+                };
+            \end{tikzpicture}\\
+            We have 3 leaves, (CH, EN), (CH\_, E\_N), (C\_H, EN\_)\\
+            \begin{tikzpicture}
+            [
+                level 1/.style={sibling distance=60mm},
+                level 2/.style={sibling distance=35mm},
+                level 3/.style={sibling distance=30mm},
+                level 4/.style={sibling distance=30mm}
+            ]
+                \node{(C, \_)}
+                child {
+                    node {(CH, \_E)}
+                    child {node {(CH\_, \_EN)}}
+                }
+                child {
+                    node {(CH, \_\_)}
+                    child {
+                        node {(CH\_, \_\_E)}
+                        child {node {(CH\_\_, \_\_EN)}}
+                    }
+                }
+                child {
+                    node {(C\_, \_E)}
+                    child {node {(C\_H, \_EN)}}
+                    child {
+                        node {(C\_H, \_E\_)}
+                        child {node {(C\_H\_, \_E\_N)}}
+                    }
+                    child {
+                        node {(C\_\_, \_EN)}
+                        child {node {(C\_\_H, \_EN\_)}}
+                    }
+                };
+            \end{tikzpicture}\\
+            We have 5 leaves, (CH\_, \_EN), (C\_H, \_EN), (C\_H\_, \_E\_N), (C\_\_H, \_EN\_)\\
+            \begin{tikzpicture}
+            [
+                level 1/.style={sibling distance=60mm},
+                level 2/.style={sibling distance=35mm},
+                level 3/.style={sibling distance=30mm},
+                level 4/.style={sibling distance=30mm}
+            ]
+                \node{(\_, E)}
+                child {
+                    node {(\_C, EN)}
+                    child {node {(\_CH, EN\_)}}
+                }
+                child {
+                    node {(\_C, E\_)}
+                    child {node {(\_CH, E\_N)}}
+                    child {
+                        node {(\_CH, E\_\_)}
+                        child {node {(\_CH\_, E\_\_N)}}
+                    }
+                    child {
+                        node {(\_C\_, E\_N)}
+                        child {node {(\_C\_H, E\_N\_)}}
+                    }
+                }
+                child {
+                    node {(\_\_, EN)}
+                    child {
+                        node {(\_\_C, EN\_)}
+                        child {node {(\_\_CH, EN\_\_)}}
+                    }
+                };
+            \end{tikzpicture}\\
+            We have 5 leaves, (\_CH, EN\_), (\_CH, E\_N), (\_CH\_, E\_\_N), (\_C\_H, E\_N\_), (\_\_CH, EN\_\_)\\
             % TODO
             \item \maxpt{2}
             \begin{itemize}
@@ -187,6 +274,7 @@
                     T  & 4 & 4 & 4 & 4 \\
                     \hline
                 \end{tabular}\\
+                The optimal alignment is zero gaps:\\
                 $Alignment_1$: ALGO\\
                 $Alignment_2$: TEST\\
                 % TODO
@@ -252,8 +340,26 @@ def min_palindrome(s):
                 $1$ & $2$ & $3$ & $3$ & $4$ & $4$ \\
                 \hline
             \end{tabular}\\
+            Let $n = w.length$\\
+            The time complexity is $O(n^2)$, as each iteration of the outer
+            loop goes from i + 1 to the end of the array, resulting in $\sum\limits_{j=1}^{n} j$\\
             % TODO
             \item
+            Assume S is 1-indexed\\
+            We either add the new character as a standalone or use it as a palindrome with the
+            previous characters in the string.\\
+            OPT(i) = min(OPT(i - 1) + 1, min(OPT(j - 1) + 1 for j in [1, i - 1] if isPali(j, i)))\\
+            Claim: sections[i] = minimum palindromic substrings of [1, i]\\
+            Base Case: i = 1\\
+            Our algorithm is correct since for the single first character, it'll return 1\\
+            By definition, OPT(1) = 1 = f(1)\\
+            Therefore, our base case is correct\\
+            Inductive Step: Assume f(i) = OPT(i) = sections[i] for all i $\leq$ k\\
+            Show f(k + 1) is correct\\
+            We know OPT(k + 1) = min(OPT(k) + 1, min(OPT(j - 1) + 1 for j in [1, k] if isPali(j, k + 1)))\\
+            f(k + 1) = min(sections[i - 1] + 1) for i in [1, k + 1] if isPali(i, k + 1)\\
+            These are the same, so our algorithm is correct\\
+            Therefore, our algorithm produces the optimal solution\\
             % TODO
         \end{enumerate}
     \end{homeworkProblem}
@@ -263,31 +369,44 @@ def min_palindrome(s):
         \begin{enumerate}
             \item
             Since we can't include the direct children of a manager, then we need to include
-            subtrees 3 layers deep.\\
+            subtrees another layer deeper.\\
+            The optimal solution could be to include the current person, but if the manager was
+            accounted for, more enjoyment could be gained.\\
             This isn't greedy since local best choices don't always lead to the global best
             choice.\\
             % TODO
             \item
             I used memoization to store the maximum enjoyment for each person.\\
+            The idea is to store the two maximum enjoyments for each person in a map, one for the
+            person potentially included in the enjoyment and one for the person not allowed in the
+            enjoyment.\\
+            $e_i$ = enjoyment if person can be included\\
+            $e_e$ = enjoyment if person can't be included\\
             \begin{lstlisting}
-Map(person, enjoyment) = {}
-def max_enjoyment(person):
+Map(person, {true: $e_i$, false: $e_e$}) = {}
+def max_enjoyment(person, canInclude) -> int:
     if person is None:
         return 0
     if person in Map:
-        return Map(person)
+        return Map(person, canInclude)
+
+    ci = person.enjoyment
+    for child in person.children:
+        ci += max_enjoyment(child, false)
+
     ce = 0
     for child in person.children:
-        ce += max_enjoyment(child)
-
-    gce = 0
-    for child in person.children:
-        for grandchild in child.children:
-            gce += max_enjoyment(grandchild)
-    Map(tree, max(ce, gce + person.enjoyment))
-    return max(ce, gce + person.enjoyment)
+        ce += max_enjoyment(child, true)
+    Map(person, {ci, ce})
+    return canInclude ? ci : ce
             \end{lstlisting}
-            Time complexity is $O(n)$\\
+            Let i be the level where i = 0 is the root\\
+            The optimal solution is OPT(i) = max(OPT(i + 1), OPT(i + 2))\\
+            We compute each peron's enjoyment included and excluded once, so the time complexity
+            is $O(n)$, where n = number of people\\
+            Now, I'll show the algorithm is optimal\\
+            Base Case: person is None\\
+            Then, $e_i$ = person.enjoyment and $e_e$ = 0\\
             % TODO
         \end{enumerate}
     \end{homeworkProblem}
