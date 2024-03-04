@@ -356,7 +356,8 @@ def min_palindrome(s):
             Therefore, our base case is correct\\
             Inductive Step: Assume f(i) = OPT(i) = sections[i] for all i $\leq$ k\\
             Show f(k + 1) is correct\\
-            We know OPT(k + 1) = min(OPT(k) + 1, min(OPT(j - 1) + 1 for j in [1, k] if isPali(j, k + 1)))\\
+            We know OPT(k + 1) = min(OPT(k) + 1, min(OPT(j - 1) + 1 for j in [1, k] if isPali(j,
+            k + 1)))\\
             f(k + 1) = min(sections[i - 1] + 1) for i in [1, k + 1] if isPali(i, k + 1)\\
             These are the same, so our algorithm is correct\\
             Therefore, our algorithm produces the optimal solution\\
@@ -380,13 +381,11 @@ def min_palindrome(s):
             The idea is to store the two maximum enjoyments for each person in a map, one for the
             person potentially included in the enjoyment and one for the person not allowed in the
             enjoyment.\\
-            $e_i$ = enjoyment if person can be included\\
-            $e_e$ = enjoyment if person can't be included\\
+            $e_i$ = enjoyment if person can be included and its associated list of people\\
+            $e_e$ = enjoyment if person can't be included and its associated list of people\\
             \begin{lstlisting}
 Map(person, {true: $e_i$, false: $e_e$}) = {}
 def max_enjoyment(person, canInclude) -> int:
-    if person is None:
-        return 0
     if person in Map:
         return Map(person, canInclude)
 
@@ -398,15 +397,25 @@ def max_enjoyment(person, canInclude) -> int:
     for child in person.children:
         ce += max_enjoyment(child, true)
     Map(person, {ci, ce})
-    return canInclude ? ci : ce
+    return canInclude ? max(ci, ce) : ce
             \end{lstlisting}
-            Let i be the level where i = 0 is the root\\
-            The optimal solution is OPT(i) = max(OPT(i + 1), OPT(i + 2))\\
+            Let i be the level where i = 0 is the bottom most person\\
+            The optimal solution is OPT(i) = max(sum(OPT(i - 1)), sum(OPT(i - 2)) + enjoyment$_i$)\\
             We compute each peron's enjoyment included and excluded once, so the time complexity
             is $O(n)$, where n = number of people\\
             Now, I'll show the algorithm is optimal\\
-            Base Case: person is None\\
+            Base Case: person is bottom of tree, show f(0) = OPT(0)\\
             Then, $e_i$ = person.enjoyment and $e_e$ = 0\\
+            This is optimal since OPT(i) = max(sum(0), sum(0) + enjoyment$_i$) = max(0, enjoyment$_i$) = enjoyment$_i$\\
+            Therefore, our base case is correct\\
+            Inductive Hypothesis: Assume f(i) = OPT(i) for i $\leq$ k\\
+            Inductive Step: Show f(k + 1) = OPT(k + 1)\\
+            Our algorithm computes sum(f(k)) and sum(f(k - 1)) + enjoyment$_{k + 1}$\\
+            It then returns the maximum of the two since we allow the inclusion of the current
+            person\\
+            OPT(k + 1) = max(sum(OPT(k)), sum(OPT(k - 1)) + enjoyment$_{k + 1}$)\\
+            Therefore, the two are the same, so our algorithm is correct\\
+            Therefore, our algorithm produces the optimal solution\\
             % TODO
         \end{enumerate}
     \end{homeworkProblem}
