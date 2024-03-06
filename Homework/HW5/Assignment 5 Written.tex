@@ -182,8 +182,10 @@ def align(i, j):
     (3) second = align(i, j + 1) + gap(s2[j])
     return min(both, first, second)
             \end{lstlisting}
-            This yields a time complexity of $O(3^{m + n})$ since there are 3 recursive calls per
-            function call\\
+            Let n = len(s1) and m = len(s2) with n $<$ m, then we have ${n + m \choose n}$
+            possible alignments.\\
+            Since there are 3 recursive calls per function call until a string runs out of
+            characters, there's an upper bound time complexity of $O(3^{n + m})$\\
             % Example: String$_1$: CH, String$_2$: EN\\
             % We have 3 possibilities for our first layer, (C, E), (C, \_), (\_, E)\\
             % \begin{tikzpicture}
