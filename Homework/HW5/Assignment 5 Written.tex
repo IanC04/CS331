@@ -166,98 +166,113 @@
             characters in first string)\\
             (3) Include character of second string and add gap to first string(Until no more
             characters in second string)\\
-            OPT(i, j) = min($\alpha_{x_i y_i} + OPT(i - 1, j - 1)$, $\delta + OPT(i - 1, j)$,
-            $\delta + OPT(i, j - 1)$)\\
+            Let \texttt{obj} be the the cost for comparing characters and \texttt{gap} be the
+            cost of adding a gap\\
+            \begin{lstlisting}
+def align(i, j):
+    if i == s1.length and j == s2.length:
+        return 0
+    elif i == s1.length:
+        return gap(s2[j]) + align(i, j + 1))
+    elif j == s2.length:
+        return gap(s1[i]) + align(i + 1, j))
+
+    (1) both = align(i + 1, j + 1) + obj(s1[i], s2[j])
+    (2) first = align(i + 1, j) + gap(s1[i])
+    (3) second = align(i, j + 1) + gap(s2[j])
+    return min(both, first, second)
+            \end{lstlisting}
             This yields a time complexity of $O(3^{m + n})$\\
-            Example: String$_1$: CH, String$_2$: EN\\
-            We have 3 possibilities for our first layer, (C, E), (C, \_), (\_, E)\\
-            \begin{tikzpicture}
-            [
-                level 1/.style={sibling distance=60mm},
-                level 2/.style={sibling distance=35mm},
-                level 3/.style={sibling distance=30mm},
-                level 4/.style={sibling distance=30mm}
-            ]
-                \node{(C, E)}
-                child {
-                    node {(CH, EN)}}
-                child {
-                    node {(CH, E\_)}
-                    child {node {(CH\_, E\_N)}}
-                }
-                child {
-                    node {(C\_, EN)}
-                    child {node {(C\_H, EN\_)}}
-                };
-            \end{tikzpicture}\\
-            We have 3 leaves, (CH, EN), (CH\_, E\_N), (C\_H, EN\_)\\
-            \begin{tikzpicture}
-            [
-                level 1/.style={sibling distance=60mm},
-                level 2/.style={sibling distance=35mm},
-                level 3/.style={sibling distance=30mm},
-                level 4/.style={sibling distance=30mm}
-            ]
-                \node{(C, \_)}
-                child {
-                    node {(CH, \_E)}
-                    child {node {(CH\_, \_EN)}}
-                }
-                child {
-                    node {(CH, \_\_)}
-                    child {
-                        node {(CH\_, \_\_E)}
-                        child {node {(CH\_\_, \_\_EN)}}
-                    }
-                }
-                child {
-                    node {(C\_, \_E)}
-                    child {node {(C\_H, \_EN)}}
-                    child {
-                        node {(C\_H, \_E\_)}
-                        child {node {(C\_H\_, \_E\_N)}}
-                    }
-                    child {
-                        node {(C\_\_, \_EN)}
-                        child {node {(C\_\_H, \_EN\_)}}
-                    }
-                };
-            \end{tikzpicture}\\
-            We have 5 leaves, (CH\_, \_EN), (C\_H, \_EN), (C\_H\_, \_E\_N), (C\_\_H, \_EN\_)\\
-            \begin{tikzpicture}
-            [
-                level 1/.style={sibling distance=60mm},
-                level 2/.style={sibling distance=35mm},
-                level 3/.style={sibling distance=30mm},
-                level 4/.style={sibling distance=30mm}
-            ]
-                \node{(\_, E)}
-                child {
-                    node {(\_C, EN)}
-                    child {node {(\_CH, EN\_)}}
-                }
-                child {
-                    node {(\_C, E\_)}
-                    child {node {(\_CH, E\_N)}}
-                    child {
-                        node {(\_CH, E\_\_)}
-                        child {node {(\_CH\_, E\_\_N)}}
-                    }
-                    child {
-                        node {(\_C\_, E\_N)}
-                        child {node {(\_C\_H, E\_N\_)}}
-                    }
-                }
-                child {
-                    node {(\_\_, EN)}
-                    child {
-                        node {(\_\_C, EN\_)}
-                        child {node {(\_\_CH, EN\_\_)}}
-                    }
-                };
-            \end{tikzpicture}\\
-            We have 5 leaves, (\_CH, EN\_), (\_CH, E\_N), (\_CH\_, E\_\_N), (\_C\_H, E\_N\_), (\_\_CH, EN\_\_)\\
             % TODO
+            % Example: String$_1$: CH, String$_2$: EN\\
+            % We have 3 possibilities for our first layer, (C, E), (C, \_), (\_, E)\\
+            % \begin{tikzpicture}
+            % [
+            %     level 1/.style={sibling distance=60mm},
+            %     level 2/.style={sibling distance=35mm},
+            %     level 3/.style={sibling distance=30mm},
+            %     level 4/.style={sibling distance=30mm}
+            % ]
+            %     \node{(C, E)}
+            %     child {
+            %         node {(CH, EN)}}
+            %     child {
+            %         node {(CH, E\_)}
+            %         child {node {(CH\_, E\_N)}}
+            %     }
+            %     child {
+            %         node {(C\_, EN)}
+            %         child {node {(C\_H, EN\_)}}
+            %     };
+            % \end{tikzpicture}\\
+            % We have 3 leaves, (CH, EN), (CH\_, E\_N), (C\_H, EN\_)\\
+            % \begin{tikzpicture}
+            % [
+            %     level 1/.style={sibling distance=60mm},
+            %     level 2/.style={sibling distance=35mm},
+            %     level 3/.style={sibling distance=30mm},
+            %     level 4/.style={sibling distance=30mm}
+            % ]
+            %     \node{(C, \_)}
+            %     child {
+            %         node {(CH, \_E)}
+            %         child {node {(CH\_, \_EN)}}
+            %     }
+            %     child {
+            %         node {(CH, \_\_)}
+            %         child {
+            %             node {(CH\_, \_\_E)}
+            %             child {node {(CH\_\_, \_\_EN)}}
+            %         }
+            %     }
+            %     child {
+            %         node {(C\_, \_E)}
+            %         child {node {(C\_H, \_EN)}}
+            %         child {
+            %             node {(C\_H, \_E\_)}
+            %             child {node {(C\_H\_, \_E\_N)}}
+            %         }
+            %         child {
+            %             node {(C\_\_, \_EN)}
+            %             child {node {(C\_\_H, \_EN\_)}}
+            %         }
+            %     };
+            % \end{tikzpicture}\\
+            % We have 5 leaves, (CH\_, \_EN), (C\_H, \_EN), (C\_H\_, \_E\_N), (C\_\_H, \_EN\_)\\
+            % \begin{tikzpicture}
+            % [
+            %     level 1/.style={sibling distance=60mm},
+            %     level 2/.style={sibling distance=35mm},
+            %     level 3/.style={sibling distance=30mm},
+            %     level 4/.style={sibling distance=30mm}
+            % ]
+            %     \node{(\_, E)}
+            %     child {
+            %         node {(\_C, EN)}
+            %         child {node {(\_CH, EN\_)}}
+            %     }
+            %     child {
+            %         node {(\_C, E\_)}
+            %         child {node {(\_CH, E\_N)}}
+            %         child {
+            %             node {(\_CH, E\_\_)}
+            %             child {node {(\_CH\_, E\_\_N)}}
+            %         }
+            %         child {
+            %             node {(\_C\_, E\_N)}
+            %             child {node {(\_C\_H, E\_N\_)}}
+            %         }
+            %     }
+            %     child {
+            %         node {(\_\_, EN)}
+            %         child {
+            %             node {(\_\_C, EN\_)}
+            %             child {node {(\_\_CH, EN\_\_)}}
+            %         }
+            %     };
+            % \end{tikzpicture}\\
+            % We have 5 leaves, (\_CH, EN\_), (\_CH, E\_N), (\_CH\_, E\_\_N), (\_C\_H, E\_N\_),
+            % (\_\_CH, EN\_\_)\\
             \item \maxpt{2}
             \begin{itemize}
                 \item [1.]
@@ -275,13 +290,11 @@
                     \hline
                 \end{tabular}\\
                 The optimal alignment is zero gaps:\\
-                $Alignment_1$: ALGO\\
-                $Alignment_2$: TEST\\
-                % TODO
+                ALGO\\
+                TEST\\
                 \item [2.]
                 The cost is the value in the bottom right corner, 4\\
-                Cost is 4 since there are 4 sets of characters that are different
-                % TODO
+                Cost is 4 since there are 4 sets of characters that are different\\
             \end{itemize}
         \end{enumerate}
     \end{homeworkProblem}
@@ -342,8 +355,7 @@ def min_palindrome(s):
             \end{tabular}\\
             Let $n = w.length$\\
             The time complexity is $O(n^2)$, as each iteration of the outer
-            loop goes from i + 1 to the end of the array, resulting in $\sum\limits_{j=1}^{n} j$\\
-            % TODO
+            loop goes from i + 1 to the end of the array, resulting in $\sum\limits_{j=1}^{n} j \approx \frac{j^2}{2}$\\
             \item
             Assume S is 1-indexed\\
             We either add the new character as a standalone or use it as a palindrome with the
@@ -351,17 +363,24 @@ def min_palindrome(s):
             OPT(i) = min(OPT(i - 1) + 1, min(OPT(j - 1) + 1 for j in [1, i - 1] if isPali(j, i)))\\
             Claim: sections[i] = minimum palindromic substrings of [1, i]\\
             Base Case: i = 1\\
-            Our algorithm is correct since for the single first character, it'll return 1\\
+            Our algorithm is correct since for the single first character, it'll return 1 as the
+            \texttt{min\_sections} variable will stay 1 as it's the minimum\\
             By definition, OPT(1) = 1 = f(1)\\
             Therefore, our base case is correct\\
-            Inductive Step: Assume f(i) = OPT(i) = sections[i] for all i $\leq$ k\\
-            Show f(k + 1) is correct\\
+            Inductive Hypothesis: Assume f(i) = OPT(i) = sections[i] for all i $\leq$ k\\
+            Inductive Step: Show f(k + 1) is correct\\
             We know OPT(k + 1) = min(OPT(k) + 1, min(OPT(j - 1) + 1 for j in [1, k] if isPali(j,
             k + 1)))\\
             f(k + 1) = min(sections[i - 1] + 1) for i in [1, k + 1] if isPali(i, k + 1)\\
-            These are the same, so our algorithm is correct\\
+            If the new character can't be used as a palindrome, then the minimum number of
+            sections is just the previous string with this new character as a standalone\\
+            This yields the same result as the algorithm\\
+            If the new character can be used as a palindrome, then the minimum number of sections
+            would be the minimum number of sections of the string before the start of this new
+            palindrome plus 1\\
+            These is the logic of our algorithm, and it matches the optimal solution\\
+            Therefore, f(k + 1) = OPT(k + 1)\\
             Therefore, our algorithm produces the optimal solution\\
-            % TODO
         \end{enumerate}
     \end{homeworkProblem}
 
@@ -375,19 +394,18 @@ def min_palindrome(s):
             accounted for, more enjoyment could be gained.\\
             This isn't greedy since local best choices don't always lead to the global best
             choice.\\
-            % TODO
             \item
-            I used memoization to store the maximum enjoyment for each person.\\
+            I used memoized top-down approach to store the maximum enjoyment for each person.\\
             The idea is to store the two maximum enjoyments for each person in a map, one for the
             person potentially included in the enjoyment and one for the person not allowed in the
             enjoyment.\\
             $e_i$ = enjoyment if person can be included and its associated list of people\\
             $e_e$ = enjoyment if person can't be included and its associated list of people\\
             \begin{lstlisting}
-Map(person, {true: $e_i$, false: $e_e$}) = {}
-def max_enjoyment(person, canInclude) -> int:
+Map(person, {$e_i$, $e_e$})
+def max_enjoyment(person, canInclude) -> (int, List):
     if person in Map:
-        return Map(person, canInclude)
+        return Map(person, canInclude ? max($e_i$, $e_e$) : $e_e$)
 
     ci = person.enjoyment
     for child in person.children:
@@ -400,23 +418,24 @@ def max_enjoyment(person, canInclude) -> int:
     return canInclude ? max(ci, ce) : ce
             \end{lstlisting}
             Let i be the level where i = 0 is the bottom most person\\
-            The optimal solution is OPT(i) = max(sum(OPT(i - 1)), sum(OPT(i - 2)) + enjoyment$_i$)\\
+            The optimal solution is OPT(i) = max(OPT(i - 1), OPT(i - 2) + enjoyment$_i$)\\
             We compute each peron's enjoyment included and excluded once, so the time complexity
             is $O(n)$, where n = number of people\\
             Now, I'll show the algorithm is optimal\\
             Base Case: person is bottom of tree, show f(0) = OPT(0)\\
             Then, $e_i$ = person.enjoyment and $e_e$ = 0\\
-            This is optimal since OPT(i) = max(sum(0), sum(0) + enjoyment$_i$) = max(0, enjoyment$_i$) = enjoyment$_i$\\
+            This is optimal since OPT(i) = max(0, 0 + enjoyment$_i$) = enjoyment$_i$\\
             Therefore, our base case is correct\\
             Inductive Hypothesis: Assume f(i) = OPT(i) for i $\leq$ k\\
             Inductive Step: Show f(k + 1) = OPT(k + 1)\\
-            Our algorithm computes sum(f(k)) and sum(f(k - 1)) + enjoyment$_{k + 1}$\\
-            It then returns the maximum of the two since we allow the inclusion of the current
+            We know OPT(k + 1) = max(OPT(k), OPT(k - 1) + enjoyment$_{k + 1}$)\\
+            Our algorithm computes $e_e$ = f(k) and $e_i$ = f(k - 1) + enjoyment$_{k + 1}$\\
+            It then returns max($e_e$, $e_i$) since we allow the inclusion of the current
             person\\
-            OPT(k + 1) = max(sum(OPT(k)), sum(OPT(k - 1)) + enjoyment$_{k + 1}$)\\
-            Therefore, the two are the same, so our algorithm is correct\\
+            Since f(k) = OPT(k) and f(k - 1) = OPT(k - 1), then f(k + 1) = max(OPT(k), OPT(k - 1
+            ) + enjoyment$_{k + 1}$)\\
+            Therefore, f(k + 1) = OPT(k + 1)\\
             Therefore, our algorithm produces the optimal solution\\
-            % TODO
         \end{enumerate}
     \end{homeworkProblem}
 
