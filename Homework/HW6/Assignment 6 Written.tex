@@ -1,0 +1,171 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{enumitem}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{ listings}
+\usepackage{algorithmic}
+\pagestyle{empty}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{quotes}
+\tikzstyle{vertex}=[circle, draw, inner sep=0pt, minimum size=6pt]
+\newcommand{\vertex}{\node[vertex]}
+\addtolength{\textwidth}{20mm}
+\addtolength{\oddsidemargin}{-10mm}
+\addtolength{\textheight}{30mm}
+\addtolength{\topmargin}{-14mm}
+\newcommand{\Class}{ \normalsize CS 331: Algorithms and Complexity (Spring 2024)\\
+\small    Unique Number: 50930, 50935 50940, 50945
+}
+%\newcommand{\ClassInstructor}{Fares}
+% Homework Specific Information. Change it to your own
+
+
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist
+
+%\newcommand{\ClassInstructor}{Fares}
+%\newcommand{\ClassInstructor}{Fares}
+
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist
+
+
+%\newcommand{\ClassInstructor}{Fares}
+% Homework Specific Information. Change it to your own
+\newcommand{\Title}{Assignment 6 - Solution}
+\newcommand{\DueDate}{Tuesday, 19 March, by 11.59pm}
+
+\newcommand{\StudentName}{}
+\newcommand{\StudentClass}{}
+\newcommand{\StudentNumber}{}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\StudentName}                                                 %
+\chead{\Title}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page
+\ldots}\nobreak%
+\nobreak\extramarks{#1}{}\nobreak}%
+
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+{\stepcounter{homeworkProblemCounter}%
+\renewcommand{\homeworkProblemName}{#1}%
+\section*{\homeworkProblemName}%
+\enterProblemHeader{\homeworkProblemName}}%
+{\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+{% We put this space here to make sure we're not connected to the above.
+
+    \renewcommand{\homeworkSectionName}{#1}%
+    \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+    \addtolength{\homeworkSectionLabelLength}{0.25in}%
+    \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+    \subsection*{\homeworkSectionName}%
+    \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+    {\enterProblemHeader{\homeworkProblemName}%
+
+    % We put the blank space above in order to make sure this margin
+    % change doesn't happen too soon.
+    \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\Answer}{\ \\\textbf{Answer:} }
+\newcommand{\Acknowledgement}[1]{\ \\{\bf Acknowledgement:} #1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\textmd{\bf \Class\\ \Title}\\\vspace{0.1in}\small{Due\ on\ \DueDate}}
+\date{}
+\author{\textbf{\StudentName}\ \ \StudentClass\ \ \StudentNumber}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\sol}[1]{\\\textbf{Sol.} #1}
+
+\begin{document}
+    \maketitle \thispagestyle{empty}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Begin edit from here
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Begin edit from here
+
+
+    %    \begin{figure}[h]
+    %        \centering
+    %        \includegraphics[width=0.75\textwidth]{../HonorCode}
+    %    \end{figure}
+
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Begin edit from here
+
+
+
+
+    \begin{homeworkProblem}
+        \textbf{(10 points)}
+        \noindent State whether the following are true or false. Justify if true. If false, give
+        a counter-example. \\
+        \begin{enumerate}[label=\alph*)]
+            \item \textbf{(1 point)}
+            % TODO
+            \item \textbf{(2 point)}
+            % TODO
+            \item \textbf{(1 point)}
+            % TODO
+            \item \textbf{(2 points)}
+            % TODO
+            \item \textbf{(2 points)}
+            % TODO
+            \item \textbf{(2 points)}
+            % TODO
+        \end{enumerate}
+    \end{homeworkProblem}
+
+    \begin{homeworkProblem}
+        \textbf{(10 points)}
+        % TODO
+    \end{homeworkProblem}
+
+    \begin{homeworkProblem}
+        \textbf{(10 points)}
+        % TODO
+    \end{homeworkProblem}
+\end{document}
