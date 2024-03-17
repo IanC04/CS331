@@ -179,13 +179,11 @@
             \end{tikzpicture}\\
             However, the max flow remains the same since $x_4 \to t$ and $s \to x_3$ can't pass
             more flow\\
-            % TODO
             \item \textbf{(2 point)}\\
             True, we can describe the max flow as the min-cut where $s \in A$ and $t \in B$\\
             Since the sum of integers divisible by 3 is divisible by 3, we can say that every cut
             is divisible by 3, and therefore the min-cut is also divisible by 3.\\
             Therefore, the max flow is divisible by 3.\\
-            % TODO
             \item \textbf{(1 point)}\\
             False, it can still be unique\\
             Consider this graph:\\
@@ -196,7 +194,6 @@
             \end{tikzpicture}\\
             There is one edge, so all edges have the same capacity\\
             There is only one possible min-cut, so it's unique\\
-            % TODO
             \item \textbf{(2 points)}\\
             False, the min-cuts may change\\
             Consider the following graph:\\
@@ -215,9 +212,9 @@
                 \draw[->] (4) -- node[midway, above right] {2} (6);
                 \draw[->] (5) -- node[midway, below right] {2} (6);
             \end{tikzpicture}\\
-            The min-cuts are $\{s, x_3\}$ and $\{x_2, x_4, x_5, t\}$ with a capacity of 3 and
-            $\{s, x_2, x_3\}$ and $\{x_4, x_5, t\}$ with a capacity of 3 and $\{s, x_2, x_3, x_5\}$
-            and $\{x_4, t\}$ with a capacity of 3\\
+            The min-cuts are $A = \{s, x_3\}$ and $B = \{x_2, x_4, x_5, t\}$ with a capacity of 3
+            and $A = \{s, x_2, x_3\}$ and $B = \{x_4, x_5, t\}$ with a capacity of 3 and
+            $A = \{s, x_2, x_3, x_5\}$ and $B = \{x_4, t\}$ with a capacity of 3\\
             Let's add 2 to all edges\\
             \begin{tikzpicture}[node distance={15mm}, thick, main/.style = {draw, circle}]
                 \node[main] (1) {$s$};
@@ -234,9 +231,8 @@
                 \draw[->] (4) -- node[midway, above right] {4} (6);
                 \draw[->] (5) -- node[midway, below right] {4} (6);
             \end{tikzpicture}\\
-            However, the min-cuts are now $\{s, x_3\}$ and $\{x_2, x_4, x_5, t\}$ with a
-            capacity of 7 and $\{s, x_2, x_3, x_5\}$ and $\{x_4, t\}$ with a capacity of 7\\
-            % TODO
+            However, the min-cuts are now $A = \{s, x_3\}$ and $B = \{x_2, x_4, x_5, t\}$ with a
+            capacity of 7 and $A = \{s, x_2, x_3, x_5\}$ and $B = \{x_4, t\}$ with a capacity of 7\\
             \item \textbf{(2 points)}\\
             True, the min-cuts stay the same\\
             Assume this is false\\
@@ -254,7 +250,6 @@
             Divide both sides by c, which yields $\frac{cap(\gamma)}{c} \leq \frac{cap(\xi)}{c}$\\
             This means that $\gamma$ is a min-cut in the original graph, which is a contradiction\\
             Therefore, the min-cuts stay the same\\
-            % TODO
             \item \textbf{(2 points)}\\
             False, the max flow may change\\
             Consider the following graph:\\
@@ -291,17 +286,56 @@
                 \draw (5) -- node[midway, below right] {2} (6);
             \end{tikzpicture}\\
             The max flow is now 3\\
-            % TODO
         \end{enumerate}
     \end{homeworkProblem}
 
     \begin{homeworkProblem}
-        \textbf{(10 points)}
+        \textbf{(10 points)}\\
+        We know that the profit is the revenue of the stages being performed minus
+        the cost of inviting those artists.\\
+        I would create two new nodes being the source and target in the network flow.\\
+        The first layer is just the source, and it connects to each artist with the weights being
+        the cost of inviting the artist.\\
+        The second layer is the artists, which connect to each stage they're needed in with the
+        weights being infinite.\\
+        The third layer is the stages to the target with the weights being the revenue of
+        performing on that stage.\\
+        The final layer is the target.\\
         % TODO
     \end{homeworkProblem}
 
     \begin{homeworkProblem}
-        \textbf{(10 points)}
+        \textbf{(10 points)}\\
+        Structure: Farm $\to$ Produce $\to$ Stores $\to$ Target.\\
+        Layer 1- The farm connects to each produce with the weights being
+        the amount of each it can supply.\\
+        Layer 2- The produce connects to each store they're needed in with the
+        weights being the amount its willing to buy.\\
+        Layer 3- The stores connect to the target with the weights being the budget.\\
+        Layer 4- The target.\\
+        This works since the max-flow will push the maximum amount of produce through the network,
+        which can be constricted based on a store's budget or their list of needed items.\\
+        The algorithm is Ford-Fulkerson, which is $O(mC)$.\\
+        \begin{tikzpicture}[node distance={25mm}, thick, main/.style = {draw, circle}]
+            \node[main] (1) {$f$};
+            \node[main] (3) [right of=1] {$p_2$};
+            \node[main] (2) [above of=3] {$p_1$};
+            \node[main] (4) [below of=3] {$p_3$};
+            \node[main] (5) [above right of=3] {$b_1$};
+            \node[main] (6) [below right of=3] {$b_2$};
+            \node[main] (7) [below right of=5] {$t$};
+            \draw[->] (1) -- node[midway, above left] {10} (2);
+            \draw[->] (1) -- node[midway, above] {4} (3);
+            \draw[->] (1) -- node[midway, below left] {6} (4);
+            \draw[->] (2) -- node[midway, above] {4} (5);
+            \draw[->] (2) -- node[above right] {4} (6);
+            \draw[->] (3) -- node[midway, above left] {5} (5);
+            \draw[->] (3) -- node[midway, below left] {6} (6);
+            \draw[->] (4) -- node[above right] {3} (5);
+            \draw[->] (4) -- node[midway, below] {4} (6);
+            \draw[->] (5) -- node[midway, above right] {10} (7);
+            \draw[->] (6) -- node[midway, below right] {10} (7);
+        \end{tikzpicture}\\
         % TODO
     \end{homeworkProblem}
 \end{document}
