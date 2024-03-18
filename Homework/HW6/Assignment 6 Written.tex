@@ -303,11 +303,11 @@
         the cost of inviting those artists.\\
         When we compute the max-flow through this network, we will have the flows from the source
         to each artist.\\
-        Take the artists which has flow = capacity, as it means the cost of inviting that artist
-        is fulfilled and from the stages to the target, the entire cost is consumed, meaning we
-        will at least break even.\\
-        We then take all stages that have their artist requirements satisfied by our chosen
-        subset of artists.\\
+        Take the stages which have flow $<$ capacity to the target.\\
+        It means the cost of inviting the artists that perform on it is fulfilled and from the
+        stages to the target, the entire cost is consumed, meaning we will at least make one
+        dollar.\\
+        We then take all artists required by our chosen subset of stages.\\
     \end{homeworkProblem}
 
     \begin{homeworkProblem}
