@@ -5,4 +5,5 @@ Algorithms and Complexity
 My solutions to the homework problems and handouts
 
 ### Notes
-- [Exam Cheat Sheet](<out/CS331 Notes.pdf>)
+- [Exam 1 Cheat Sheet](<out/CS331 Notes 1.pdf>)
+- [Exam 2 Cheat Sheet](<out/CS331 Notes 2.pdf>)
