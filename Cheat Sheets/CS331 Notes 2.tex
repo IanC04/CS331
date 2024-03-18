@@ -36,13 +36,6 @@
         correct\\
         Iterative: Usually loop invariants\\
         Recursive: Usually induction
-        \subsection*{Stable Marriage}
-        Perfect Matching with Stability\\
-        Self-enforcing: Self-interest itself prevents offers from being retracted and redirected
-        \subsubsection*{Gale-Shapley Algorithm}
-        Men get the best women while women get the worst men\\
-        Greedy algorithm that picks the best available women for each man\\
-        Time: $O(n^2)$
         \subsection*{Complexity}
         $a^{\log_b x} = x^{\log_b a}$\\
         $\log_b x = \frac{\log_c x}{\log_c b}$\\
@@ -69,81 +62,7 @@
         $f(n) = \Theta(n^{\log_b a}) \to T(n) = \Theta(n^{\log_b a}\log n)$\\
         $f(n) = \Omega(n^{log_b (a) + \epsilon}) \wedge af(\frac{n}{b}) \leq cf(n)$ for some $c
         < 1 \to T(n) = \Theta(f(n))$
-        \subsection*{Graphs}
-        n = $\rvert V \lvert$, m = $\rvert E \lvert$, e = $(u, v)$\\
-        Complete: $\lvert E \rvert = \frac{n(n - 1)}{2}$
-        \subsubsection*{Adjacency Matrix}
-        Space: $n^2$, Check if (u, v) is an edge: $\Theta(1)$, Check all edges: $\Theta(n^2)$
-        \subsubsection*{Adjacency List}
-        Space: $n + m$, Check if (u, v) is an edge: $O(\deg(u))$ (actually $O(1 + \deg(u))$), Check
-        all edges: $\Theta(n + m)$ (actually $\Theta(n + 2m)$)
-        \subsubsection*{Paths}
-        Sequence of vertices $v_1, v_2, \dots, v_k$ such that $(v_i, v_{i+1})$ is an edge\\
-        Simple Path: No repeated vertices\\
-        Connected: There is a path between every pair of vertices\\
-        Cycle: Simple path with $v_1 = v_k$ and $k > 2$\\
-        Tree: Connected graph with no cycles, $\lvert E \rvert = n - 1$
-        \subsubsection*{Breadth First Search}
-        $O(n + m)$ if adjacency list, $O(n^2)$ if adjacency matrix
-        \subsubsection*{Depth First Search}
-        $O(n + m)$ if adjacency list, $O(n^2)$ if adjacency matrix
-        \subsubsection*{Directed Graphs}
-        Mutually Reachable: $u \to v$ and $v \to u$\\
-        Strongly Connected: Every node mutually reachable\\
-        Directed Acyclic Graph: No directed cycles\\
-        Topological Ordering: Ordering of vertices $v_1, v_2, \ldots, v_n$ such that if $(v_i,
-        v_j)$ is an edge, $i < j$\\
-        DAG $\rightleftarrows$ Topological Ordering
-        \subsubsection*{Bipartite Graphs}
-        No odd cycles, can be colored with 2 colors
-        \subsubsection*{Connected Components}
-        Strongly Connected Components (Di-graph only)
-        \subsection*{Greedy Algorithms}
-        Use local optimization to find a global solution.
-        \subsubsection*{Interval Scheduling}
-        Maximum number of non-overlapping intervals\\
-        Sort by finish time, take the first interval that doesn't overlap
-        with the previous interval\\
-        Time: $O(n\log n)$
-        \subsubsection*{Interval Partitioning/Scheduling all Intervals}
-        Minimum number of rooms to schedule all intervals\\
-        Sort by start time, if interval overlaps with all preceding intervals, allocate new room\\
-        Time: $O(n\log n)$
-        \subsubsection*{Scheduling to Minimize Lateness}
-        Minimizes the maximum lateness\\
-        Sort by deadline, schedule in order of increasing deadline\\
-        Time: $O(n\log n)$
-        \subsubsection*{Dijkstra}
-        Single-source shortest path; weighted BFS\\
-        Assumes non-negative edge weights, non-deterministic(consistent) otherwise\\
-        Use Bellman-Ford if negative edge weights, which uses dynamic programming\\
-        Time: $O(nm)$ if naive, $O(m\log n)$ if priority heap
-        \subsection*{Minimum Spanning Trees}
-        Assumes connected, undirected, distinct and non-negative edges
-        \subsubsection*{Kruskal}
-        Sort edges by weight, add edge if it doesn't form a cycle\\
-        Time: $O(m^2)$ if naive, $O(m\log n)$ if union-find
-        \subsubsection*{Prim}
-        Start with any vertex, add the minimum weight edge that connects to the tree(one inside
-        tree and one outside)\\
-        Time: $O(n^2)$ if naive, $O(m\log n)$ if priority heap
-        \subsection*{Reverse-Delete}
-        Sort edges in decreasing order, remove edge if it doesn't disconnect the graph\\
-        Time: $O(e\log e)$ in PPT, $O(E\log(V)(\log\log V)^3)$ online
-        \subsection*{Greedy Stays Ahead}
-        Define: Optimal- $\mathbb{O}$ and Greedy- $\mathbb{G}$\\
-        Measurement: Define criteria to compare each element of $\mathbb{O}$ and $\mathbb{G}$\\
-        Stays Ahead: Show $\mathbb{G}_i$ is better than $\mathbb{O}_i$ $(\forall i)$, usually
-        through induction\\
-        Optimality: Show that $\mathbb{G}$ is optimal since it is always better than $\mathbb{O}$,
-        usually through contradiction by assuming greedy isn't optimal but it stays ahead of optimal
-        \subsection*{Exchange Argument}
-        Define: Optimal- $\mathbb{O}$ and Greedy- $\mathbb{G}$\\
-        Compare Solutions: Show differences in order or existence\\
-        Exchange Pieces: Show that transforming $\mathbb{O}$ to $\mathbb{G}$ doesn't reduce
-        optimality\\
-        Iterate: Repeat until $\mathbb{O}$ is $\mathbb{G}$
-        \subsection*{Divide and Conquer/Combine}
+        \subsection*{Divide and Conquer}
         Divide: Break problem into smaller subproblems\\
         Conquer/Combine: Solve subproblems recursively and combine
         \subsubsection*{Recurrence Relation}
@@ -151,7 +70,8 @@
         Mirrors the recursive algorithm it represents\\
         Analysis of the running time of a divide and conquer algorithm generally involves
         solving a recurrence relation\\
-        1,2,3 Method Example: (Merge Sort)\\
+        1,2,3 Method
+        \subsubsection*{Merge Sort}
         $T(n) = 2T(\frac{n}{2}) + n-1$, $T(1) = 0$\\
         \begin{tabular}{c|c|c}
             Level  & Problem Size        & Total Time               \\
@@ -165,6 +85,16 @@
         $\to (\sum\limits_{i=0}^{k-1} n) + 0 \cdot 2^{log_2 n} \to \sum\limits_{i=0}^{log_2 n -
         1} n \to n\log_2 n$\\
         or $\to \sum\limits_{i=0}^{k} n \to \sum\limits_{i=0}^{log_2 n} n \to n\log_2 n$
+        \subsubsection*{Closest Pair}
         \subsection*{Dynamic Programming}
+        \subsubsection*{Weighted Interval Scheduling}
+        \subsubsection*{Memoization}
+        \subsubsection*{Subset Sum/Knapsacks}
+        \subsubsection*{Sequence Alignment}
+        \subsubsection*{Bellman-Ford}
+        \subsection*{Network Flow}
+        \subsubsection*{Maximum Flow Problem}
+        \subsubsection*{Ford-Fulkerson}
+        \subsubsection*{Max Flow/Min Cut}
     \end{multicols*}
 \end{document}
