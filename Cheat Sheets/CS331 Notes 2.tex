@@ -35,7 +35,11 @@
         Termination: When loop terminates, invariant gives useful property to show the algorithm is
         correct\\
         Iterative: Usually loop invariants\\
-        Recursive: Usually induction
+        Recursive: Usually induction\\
+        D\&C: Show recurrence is optimal inductively by showing sub-problems generate optimal
+        solutions\\
+        DP: Show recurrence is optimal by description of optimal substructure then show algorithm
+        implements the recurrence
         \subsection*{Complexity}
         $a^{\log_b x} = x^{\log_b a}$\\
         $\log_b x = \frac{\log_c x}{\log_c b}$\\
@@ -63,14 +67,13 @@
         $f(n) = \Omega(n^{log_b (a) + \epsilon}) \wedge af(\frac{n}{b}) \leq cf(n)$ for some $c
         < 1 \to T(n) = \Theta(f(n))$
         \subsection*{Divide and Conquer}
-        Divide: Break problem into smaller subproblems\\
-        Conquer/Combine: Solve subproblems recursively and combine
+        Divide: Break problem into smaller independent sub-problems\\
+        Conquer/Combine: Solve sub-problems recursively and combine
         \subsubsection*{Recurrence Relation}
-        A function defined in terms of itself\\
-        Mirrors the recursive algorithm it represents\\
-        Analysis of the running time of a divide and conquer algorithm generally involves
-        solving a recurrence relation\\
-        1,2,3 Method
+        A function defined in terms of itself(recursively)\\
+        Analysis of D\&C generally involves a recurrence relation\\
+        1,2,3 Method: $T(n) = \sum^{levels}$time per level or
+        $\sum^{levels-1}$time per level + (base case value $\cdot$ \# of leaves)
         \subsubsection*{Merge Sort}
         $T(n) = 2T(\frac{n}{2}) + n-1$, $T(1) = 0$\\
         \begin{tabular}{c|c|c}
@@ -86,15 +89,56 @@
         1} n \to n\log_2 n$\\
         or $\to \sum\limits_{i=0}^{k} n \to \sum\limits_{i=0}^{log_2 n} n \to n\log_2 n$
         \subsubsection*{Closest Pair}
+        D\&C by splitting plane in half by median then checking in rectangles\\
+        $O(n\log n)$
         \subsection*{Dynamic Programming}
+        Overlapping and dependant sub-problems
         \subsubsection*{Weighted Interval Scheduling}
-        \subsubsection*{Memoization}
-        \subsubsection*{Subset Sum/Knapsacks}
+        j- intervals sorted by latest finishing time\\
+        p(j)- interval that immediately precedes j without overlap\\
+        OPT(j) = max(OPT(j - 1), $v_j$ + OPT(p(j)))\\
+        Can use recursive, top-down approach(memoization) or iterative, bottom-up(tabulation)\\
+        n = number of intervals\\
+        $O(n\log n)$ to sort, $O(n)$ for algorithm
+        \subsubsection*{Subset Sum}
+        i- index of item, W- max weight\\
+        OPT(i, W) = OPT(i - 1, W) if $W < w_i$\\
+        else max($w_i$ + OPT(i - 1, W - $w_i$), OPT(i - 1, W))\\
+        n = number of items, W = sum\\
+        $O(n \cdot W)$, pseudo-polynomial
+        \subsubsection*{0/1 Knapsack}
+        Maximize value instead of weight\\
+        i- index of item, v- value, W- max weight\\
+        OPT(i, W) = OPT(i - 1, W) if $W < w_i$\\
+        else max($v_i$ + OPT(i - 1, W - $w_i$), OPT(i - 1, W))
         \subsubsection*{Sequence Alignment}
+        $\delta$- gap cost, $\alpha$- alignment cost\\
+        OPT(i, j) = min($\alpha_{x_iy_j}$ + OPT(i - 1, j - 1),
+        $\delta$ + OPT(i - 1, j), $\delta$ + OPT(i, j - 1))\\
+        m, n = length of strings\\
+        $O(mn)$
         \subsubsection*{Bellman-Ford}
+        i- number of usable edges, v- start node, w- intermediate node\\
+        OPT(i, v) = min(OPT(i - 1, v), min$_{w\in V}$(OPT(i - 1, w) + $c_{vw}$))\\
+        m = number of edges, n = number of nodes\\
+        $O(mn)$\\
+        OPT(n, v) $\neq$ OPT(n - 1, v) $\to$ path has negative cycle
         \subsection*{Network Flow}
-        \subsubsection*{Maximum Flow Problem}
+        Source(s): Only outgoing edges\\
+        Sink(t): Only incoming edges\\
+        Capacity($c_e$): $\in \mathbb{N}$\\
+        $f(e)$: Flow through edge e, $\geq$0\\
+        $v(f)$: Value of flow f, $\sum_{e\ out\ s} f(e)$
         \subsubsection*{Ford-Fulkerson}
+        Implementation of max-flow problem\\
+        m = number of edges, C = max possible flow\\
+        $O(mC)$
+        % TODO Add implementation details
         \subsubsection*{Max Flow/Min Cut}
+        Cut: Partition of nodes\\
+        A = subset with s, B = subset with t\\
+        Cut Capacity: $c(A, B) = \sum_{e\ out\ A} c_e$\\
+        $v(f) = f^{out}(A) - f^{in}(A) = f^{in}(B) - f^{out}(B)$\\
+        Min cut = Max flow
     \end{multicols*}
 \end{document}
