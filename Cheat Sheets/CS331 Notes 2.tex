@@ -61,7 +61,8 @@
         Squares: $\sum_{k=1}^{n} k^2 \sim \frac{n^3}{3}$\\
         Geometric: $\sum_{k=0}^{n} ar^k = \frac{a(r^{n+1} - 1)}{r - 1}$\\
         Stirling's Approximation: $\log_2(n!) \sim n\log_2 n$\\
-        Master's Theorem: $T(n) = aT(\frac{n}{b}) + f(n)$, $\epsilon > 0$\\
+        Master's Theorem: $T(n) = aT(\frac{n}{b}) + f(n)$, $\epsilon > 0$, $a,b$ constant, $f(n
+        ) \geq 0$\\
         $f(n) = O(n^{\log_b (a) - \epsilon}) \to T(n) = \Theta(n^{\log_b a})$\\
         $f(n) = \Theta(n^{\log_b a}) \to T(n) = \Theta(n^{\log_b a}\log n)$\\
         $f(n) = \Omega(n^{log_b (a) + \epsilon}) \wedge af(\frac{n}{b}) \leq cf(n)$ for some $c
@@ -131,9 +132,16 @@
         $v(f)$: Value of flow f, $\sum_{e\ out\ s} f(e)$
         \subsubsection*{Ford-Fulkerson}
         Implementation of max-flow problem\\
+        (1) Find simple $s - t$ path and set flow to bottleneck\\
+        (2) Build residual graph $G_f$ with backward edge if $f(e) > 0$ and forward edge if
+        $f(e) < c_e$\\
+        (3) Repeat till no simple $s - t$ path in $G_f$:\\
+        Call bottleneck value $b$\\
+        Augment G by incrementing forward edges by $f(e) += b$ and backward edges by $f(e) -= b$\\
+        Update $G_f$\\
+        (4) No $s - t$ path in $G_f$ after algorithm terminates\\
         m = number of edges, C = max possible flow\\
-        $O(mC)$
-        % TODO Add implementation details
+        $O(mC)$\\
         \subsubsection*{Max Flow/Min Cut}
         Cut: Partition of nodes\\
         A = subset with s, B = subset with t\\
