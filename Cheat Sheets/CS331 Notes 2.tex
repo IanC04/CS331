@@ -64,7 +64,8 @@
         Master's Theorem: $T(n) = aT(\frac{n}{b}) + f(n)$, $\epsilon > 0$, $a,b$ constant, $f(n
         ) \geq 0$\\
         $f(n) = O(n^{\log_b (a) - \epsilon}) \to T(n) = \Theta(n^{\log_b a})$\\
-        $f(n) = \Theta(n^{\log_b a}) \to T(n) = \Theta(n^{\log_b a}\log n)$\\
+        $f(n) = \Theta(n^{\log_b a}\log^k n) \wedge k \geq 0 \to T(n) =
+        \Theta(n^{\log_b a}\log^{k+1}n)$\\
         $f(n) = \Omega(n^{log_b (a) + \epsilon}) \wedge af(\frac{n}{b}) \leq cf(n)$ for some $c
         < 1 \to T(n) = \Theta(f(n))$
         \subsection*{Divide and Conquer}
